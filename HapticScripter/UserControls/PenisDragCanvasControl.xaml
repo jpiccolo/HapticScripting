@@ -1,0 +1,19 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:UI="clr-namespace:HapticScripter.UI"
+	mc:Ignorable="d"
+	x:Class="HapticScripter.UserControls.PenisDragCanvasControl"
+	x:Name="UserControl"
+	d:DesignWidth="277" d:DesignHeight="239">
+
+	<Grid x:Name="LayoutRoot">
+		<UI:DragCanvas x:Name="PenisDragCanvas" Background="Transparent">
+            <Image x:Name="VaginaBottomImage" Source="/HapticScripter;component/Resources/vaginaBottom.png" Width="14" Canvas.Left="106" Canvas.Top="43" Height="115" />
+            <Image x:Name="VaginaTopImage" Source="/HapticScripter;component/Resources/vaginaTop.png" Width="46" Canvas.Left="68" Canvas.Top="49" Height="104" Panel.ZIndex="5" />
+            <Image x:Name="PenisImage" Source="/HapticScripter;component/Resources/penis.png" Width="100" Canvas.Left="123" Canvas.Top="48" Height="103" MouseMove="PenisImage_MouseMove" />
+		</UI:DragCanvas>
+	</Grid>
+</UserControl>

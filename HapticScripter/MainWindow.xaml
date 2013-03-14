@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Converters="clr-namespace:HapticScripter.Converters" 
         xmlns:UI="clr-namespace:HapticScripter.UI"
+        xmlns:local="clr-namespace:HapticScripter" xmlns:UserControls="clr-namespace:HapticScripter.UserControls"
         x:Class="HapticScripter.MainWindow"
         Title="MainWindow" Height="611" Width="815" Loaded="Window_Loaded">
     <Window.Resources>
@@ -47,8 +48,8 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="37*"/>
-            <RowDefinition Height="46*"/>
+            <RowDefinition Height="271*"/>
+            <RowDefinition Height="310*"/>
         </Grid.RowDefinitions>
 
         <ScrollViewer x:Name="TimelineScroller" ClipToBounds="True" VerticalScrollBarVisibility="Disabled" 
@@ -62,7 +63,6 @@
                 </Grid.RowDefinitions>
 
                 <Canvas x:Name="Header" Background="#FF2D2D30" Grid.Row="0" HorizontalAlignment="Left" RenderTransformOrigin="0.0,0.0">
-                    <ContentPresenter Content="{Binding HeaderDrawingVisual}" HorizontalAlignment="Left" />
                     <Canvas.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleX="{Binding Value, ElementName=slider}"/>
@@ -71,13 +71,13 @@
                             <TranslateTransform/>
                         </TransformGroup>
                     </Canvas.RenderTransform>
+                    <ContentPresenter Content="{Binding HeaderDrawingVisual}" HorizontalAlignment="Left" />
                 </Canvas>
 
                 <ItemsControl x:Name="TopVectorItemControl" Grid.Row="1" ItemsSource="{Binding TopVectorData}" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Canvas x:Name="TopAxis" Background="#FF65656C" Grid.Row="1">
-                            </Canvas>
+                            <Canvas x:Name="TopAxis" Background="#FF65656C" Grid.Row="1"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
@@ -106,17 +106,13 @@
             </Grid>
         </ScrollViewer>
 
-        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="538,125,0,0" VerticalAlignment="Top" Width="114" Value="1" Minimum="0.01" Maximum="1" ValueChanged="slider_ValueChanged"/>
-        <Label Content="{Binding Value, ElementName=slider}" HorizontalAlignment="Left" Margin="692,121,0,0" VerticalAlignment="Top"/>
-        <MediaElement x:Name="VideoPlayer" Margin="10,10,573,10" ScrubbingEnabled="True" LoadedBehavior="Manual"/>
-        <Slider x:Name="speedRation" HorizontalAlignment="Left" Margin="303,146,0,0" VerticalAlignment="Top" Width="114" Value="1" Minimum="0.001" Maximum="8" ValueChanged="speedRation_ValueChanged" TickFrequency="0.1" RenderTransformOrigin="1.018,0.326"/>
-        <Button x:Name="PlayButton" Content="Play" HorizontalAlignment="Left" Margin="236,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-
-        <UI:DragCanvas x:Name="PenisDragCanvas" Margin="10,10,520,10" Background="Transparent">
-            <Image x:Name="VaginaBottomImage" Source="vaginaBottom.png" Width="14" Canvas.Left="106" Canvas.Top="43" Height="115" />
-            <Image x:Name="VaginaTopImage" Source="vaginaTop.png" Width="46" Canvas.Left="68" Canvas.Top="49" Height="104" Panel.ZIndex="5" />
-            <Image x:Name="PenisImage" Source="penis.png" Width="100" Canvas.Left="123" Canvas.Top="48" Height="103" MouseMove="PenisImage_MouseMove" />
-        </UI:DragCanvas>
+        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="538,125,0,0" VerticalAlignment="Top" Width="114" Value="1" Minimum="0.01" Maximum="1" ValueChanged="slider_ValueChanged" Height="22"/>
+        <Label Content="{Binding Value, ElementName=slider}" HorizontalAlignment="Left" Margin="692,121,0,0" VerticalAlignment="Top" Height="25.96" Width="16.47"/>
+        <MediaElement x:Name="VideoPlayer" Margin="10,10,528,10" ScrubbingEnabled="True" LoadedBehavior="Manual"/>
+        <Slider x:Name="speedRation" HorizontalAlignment="Left" Margin="303,146,0,0" VerticalAlignment="Top" Width="114" Value="1" Minimum="0.001" Maximum="8" ValueChanged="speedRation_ValueChanged" TickFrequency="0.1" RenderTransformOrigin="1.018,0.326" Height="22"/>
+        <Button x:Name="PlayButton" Content="Play" HorizontalAlignment="Left" Margin="236,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Button_Click" Height="21.96"/>
+        
+    	<!--<UserControls:PenisDragCanvasControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,35,0"/>-->
         
     </Grid>
 </Window>
