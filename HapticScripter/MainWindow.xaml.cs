@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 namespace HapticScripter
 {
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
 
     using HapticScripter.Data;
     using HapticScripter.UI;
@@ -26,9 +27,11 @@ namespace HapticScripter
     {
         public HeaderVisualHost VisualHost { get { return (HeaderVisualHost)GetValue(HeaderDrawingVisualProperty); } set { SetValue(HeaderDrawingVisualProperty, value); } }
 
-
         public static readonly DependencyProperty TopVectorData = DependencyProperty.Register("TopVectorData", typeof(ObservableCollection<HapticEvent>), typeof(MainWindow));
         public static readonly DependencyProperty HeaderDrawingVisualProperty = DependencyProperty.Register("HeaderDrawingVisual", typeof(HeaderVisualHost), typeof(MainWindow));
+
+        private readonly DependencyPropertyDescriptor vaginaTopImageTopDependencyProperty;
+        private readonly DependencyPropertyDescriptor vaginaTopImageLeftDependencyProperty;
 
         public enum ViewLevel
         {
@@ -43,14 +46,39 @@ namespace HapticScripter
         {
             InitializeComponent();
 
-            ObservableCollection<HapticEvent> data = new ObservableCollection<HapticEvent>();
+            var data = new ObservableCollection<HapticEvent>();
 
             data.Add(new HapticEvent());
+
+            this.vaginaTopImageTopDependencyProperty = DependencyPropertyDescriptor.FromProperty(Canvas.TopProperty, typeof(Canvas));
+            this.vaginaTopImageLeftDependencyProperty = DependencyPropertyDescriptor.FromProperty(
+                Canvas.LeftProperty, typeof(Canvas));
+
+            this.vaginaTopImageTopDependencyProperty.AddValueChanged(VaginaTopImage, new EventHandler(VaginaTopImageTopChangedCallback));
+            this.vaginaTopImageLeftDependencyProperty.AddValueChanged(VaginaTopImage, new EventHandler(VaginaTopImageLeftChangedCallback));
+
 
             this.SetValue(TopVectorData, data);
             this.DataContext = this;
 
         }
+
+        private void VaginaTopImageTopChangedCallback(object sender, EventArgs e)
+        {
+            double top = Canvas.GetTop(VaginaTopImage);
+            Canvas.SetTop(this.VaginaBottomImage, top - 5.857);
+
+            Canvas.SetTop(this.PenisImage, top - 1.271);
+        }
+
+        private void VaginaTopImageLeftChangedCallback(object sender, EventArgs e)
+        {
+            double left = Canvas.GetLeft(VaginaTopImage);
+            Canvas.SetLeft(this.VaginaBottomImage, left + 38.2);
+
+            Canvas.SetLeft(this.PenisImage, left + 54.75);
+        }
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -107,6 +135,31 @@ namespace HapticScripter
                 VideoPlayer.Play();
                 //wmpTimer.Start();
                 PlayButton.Content = "Pause";
+            }
+        }
+
+        private void PenisImage_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton != MouseButtonState.Pressed)
+            {
+                return;
+            }
+            double top = Canvas.GetTop(this.VaginaTopImage);
+            double pLeft = Canvas.GetLeft(this.PenisImage);
+            double vLeft = Canvas.GetLeft(this.VaginaTopImage);
+
+            Canvas.SetTop(this.PenisImage, top - 1.271);
+
+            if ((vLeft + 54.75) < pLeft)
+            {
+                Canvas.SetLeft(this.PenisImage, vLeft + 54.75);
+                return;
+            }
+
+            var t = 25;
+            if (pLeft < (vLeft-t))
+            {
+                Canvas.SetLeft(this.PenisImage, vLeft - t);
             }
         }
     }

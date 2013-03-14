@@ -55,8 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\VaginaBottomImagePositionConverter.cs" />
+    <Compile Include="Converters\VaginaTopImagePositionConverter.cs" />
     <Compile Include="UI\DragCanvas.cs" />
     <Compile Include="UI\HeaderVisualHost.cs" />
+    <Compile Include="UI\MouseOperations.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
