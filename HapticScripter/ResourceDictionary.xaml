@@ -213,7 +213,7 @@
                         <Grid.OpacityMask>
                             <DrawingBrush>
                                 <DrawingBrush.Drawing>
-                                    <GeometryDrawing Brush="Black" Geometry="{StaticResource Triangle}"/>
+                                    <GeometryDrawing Brush="White" Geometry="{StaticResource Triangle}"/>
                                 </DrawingBrush.Drawing>
                             </DrawingBrush>
                         </Grid.OpacityMask>
@@ -238,7 +238,7 @@
                     <Path
                         Data="{StaticResource Triangle}"
                         Stretch="Fill"
-                        Stroke="Black"
+                        Stroke="White"
                         StrokeThickness=".75"/>
                 </Grid>
             </ControlTemplate>
