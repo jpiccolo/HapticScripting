@@ -49,9 +49,14 @@ namespace HapticScripter
 
             data.Add(new HapticEvent());
 
+            KeyBindings.VideoBackwardCommand.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Alt));
+            CommandBindings.Add(new CommandBinding(KeyBindings.VideoBackwardCommand, VideoPlayerControl.BackwardButton_Click));
             
-            KeyBindings.MyCommands.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Alt));
-            CommandBindings.Add(new CommandBinding(KeyBindings.MyCommands, this.Button_Click));
+            KeyBindings.VideoPlayCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Alt));
+            CommandBindings.Add(new CommandBinding(KeyBindings.VideoPlayCommand, VideoPlayerControl.PlayButton_Click));
+
+            KeyBindings.VideoForwardCommand.InputGestures.Add(new KeyGesture(Key.D, ModifierKeys.Alt));
+            CommandBindings.Add(new CommandBinding(KeyBindings.VideoForwardCommand, VideoPlayerControl.ForwardButton_Click));
 
             this.SetValue(TopVectorData, data);
             this.DataContext = this;

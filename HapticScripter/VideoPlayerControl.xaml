@@ -3,52 +3,78 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:UI="clr-namespace:HapticScripter.UI"
+	xmlns:local="clr-namespace:HapticScripter"
+	xmlns:Data="clr-namespace:HapticScripter.Data"
 	mc:Ignorable="d"
 	x:Class="HapticScripter.VideoPlayerControl"
-	x:Name="UserControl"
-	d:DesignWidth="427.003" d:DesignHeight="294.359">
+	x:Name="VPC"
+	d:DesignWidth="427.003" d:DesignHeight="294.359" Loaded="UserControl_Loaded">
+    <UserControl.DataContext>
+        <Data:VideoPlayerDataModel/>
+    </UserControl.DataContext>
 
-	<UserControl.Resources>
-		
+    <Grid x:Name="LayoutRoot" Background="#FF828282" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="83*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="34*"/>
+        </Grid.RowDefinitions>
 
+        <MediaElement Volume="{Binding Value, ElementName=draggableSlider}" x:Name="VideoPlayer" ScrubbingEnabled="True" LoadedBehavior="Manual"/>
 
-	</UserControl.Resources>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Background="#FF2D2D30" >
+            <Grid Width="46">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Speed" Padding="0"/>
+                <Label Grid.Row="1" x:Name="speedRatioLabel" Content="{Binding SpeedRatio}" Padding="0"/>
+            </Grid>
 
-	<Grid x:Name="LayoutRoot" Background="#FF828282">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="166*"/>
-			<RowDefinition Height="20.757"/>
-			<RowDefinition Height="28.243"/>
-			<RowDefinition Height="79*"/>
-		</Grid.RowDefinitions>
-		
-		<MediaElement Volume="{Binding Value, ElementName=draggableSlider}" x:Name="VideoPlayer" ScrubbingEnabled="True" LoadedBehavior="Manual"/>
+            <Label Content="|" Padding="0"/>
 
-		<StackPanel Grid.Row="1" Orientation="Horizontal" Background="#FF2D2D30">
-			<Label Content="Speed:"/><Label x:Name="speedRatioLabel" Content="1" /><Label Content="|" />
-		</StackPanel>
-		<StackPanel Orientation="Vertical" Grid.Row="2" Background="#FF2D2D30">
+            <Grid Width="46">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Duration" Padding="0"/>
+                <Label Grid.Row="1" x:Name="DurationLabel"  Padding="0" Content="{Binding Position.TotalMilliseconds, ElementName=VideoPlayer, Mode=OneWay}"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="2" Background="#FF2D2D30">
 
-			<StackPanel Orientation="Horizontal" Background="#FF2D2D30" HorizontalAlignment="Center" Height="28.243" Margin="0,0,-0.001,0">
-				<Image Source="Resources\Backward.png" />
-				<Image Source="Resources/PlayPause.png"  />
-				<Image Source="Resources/Forward.png" />
-            
-				<UI:DraggableSlider x:Name="draggableSlider" Margin="0,4.121" Width="67" Style="{DynamicResource VolumeSliderStyle}" Value="100" SmallChange="5" Maximum="100" BorderBrush="#FFFFFBFB" >
-					<UI:DraggableSlider.Background>
-						<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-							<GradientStop Offset="0" Color="#FF00FF00"/>
-							<GradientStop Offset="0.618" Color="#FFFFFF00"/>
-							<GradientStop Offset="1" Color="#FFFF0000"/>
-						</LinearGradientBrush>
-					</UI:DraggableSlider.Background>
-				</UI:DraggableSlider>
-			</StackPanel>
+            <StackPanel Orientation="Horizontal" Background="#FF2D2D30" HorizontalAlignment="Center">
 
-		</StackPanel>
+                <Button x:Name="BackwardButton" HorizontalAlignment="Left" Click="BackwardButton_Click" Style="{DynamicResource NoChromeButton}">
+                    <Image Source="Resources/Backward.png" Stretch="None" ToolTip="Alt+a"/>
+                </Button>
 
-		<Slider x:Name="speedRation" HorizontalAlignment="Left" Margin="37,28,0,0" VerticalAlignment="Top" Width="114" Value="1" Minimum="0.001" Maximum="8" TickFrequency="0.1" RenderTransformOrigin="1.018,0.326" Height="22" Grid.Row="3"/>
-		<Button x:Name="PlayButton" Content="Play" HorizontalAlignment="Left" Margin="171,34.52,0,0" VerticalAlignment="Top" Width="75" Click="PlayButton_Click" Height="21.96" Grid.Row="3"/>
-		<TextBlock HorizontalAlignment="Left" Margin="40.997,10,0,0" TextWrapping="Wrap" Text="{Binding SpeedRatio, ElementName=VideoPlayer}" VerticalAlignment="Top" Height="13.277" Width="110.003" Grid.Row="3"/>
-	</Grid>
+                <Button x:Name="PlayButton" HorizontalAlignment="Left" Click="PlayButton_Click" Style="{DynamicResource NoChromeButton}">
+                    <Image Source="Resources/PlayPause.png" Stretch="None" ToolTip="Alt+s"/>
+                </Button>
+
+                <Button x:Name="ForwardButton" HorizontalAlignment="Left" Click="ForwardButton_Click" Style="{DynamicResource NoChromeButton}">
+                    <Image Source="Resources/Forward.png" Stretch="None" ToolTip="Alt+d"/>
+                </Button>
+
+                <UI:DraggableSlider x:Name="draggableSlider" Margin="0,4.121" Width="67" Style="{DynamicResource VolumeSliderStyle}" Value="100" SmallChange="5" Maximum="100" BorderBrush="#FFFFFBFB" >
+                    <UI:DraggableSlider.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Offset="0" Color="#FF00FF00"/>
+                            <GradientStop Offset="0.618" Color="#FFFFFF00"/>
+                            <GradientStop Offset="1" Color="#FFFF0000"/>
+                        </LinearGradientBrush>
+                    </UI:DraggableSlider.Background>
+                </UI:DraggableSlider>
+            </StackPanel>
+
+        </StackPanel>
+
+        <Slider x:Name="speedRation" HorizontalAlignment="Left" Margin="37,28,0,0" VerticalAlignment="Top" Width="114" Value="1" Minimum="0.001" Maximum="8" TickFrequency="0.1" RenderTransformOrigin="1.018,0.326" Height="22" Grid.Row="3"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="41,10,0,0" TextWrapping="Wrap" Text="{Binding SpeedRatio, ElementName=VideoPlayer}" VerticalAlignment="Top" Height="13" Width="110" Grid.Row="3"/>
+    </Grid>
 </UserControl>

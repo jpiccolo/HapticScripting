@@ -9,6 +9,8 @@ namespace HapticScripter.UI
 
     public static class KeyBindings
     {
-        public static RoutedCommand MyCommands = new RoutedCommand();
+        public static RoutedCommand VideoPlayCommand = new RoutedCommand();
+        public static RoutedCommand VideoBackwardCommand = new RoutedCommand();
+        public static RoutedCommand VideoForwardCommand = new RoutedCommand();
     }
 }

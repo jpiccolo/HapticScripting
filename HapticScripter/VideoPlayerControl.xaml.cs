@@ -13,32 +13,38 @@ using System.Windows.Shapes;
 
 namespace HapticScripter
 {
-	/// <summary>
+    using HapticScripter.Data;
+    using HapticScripter.UI;
+
+    /// <summary>
 	/// Interaction logic for VideoPlayerControl.xaml
 	/// </summary>
 	public partial class VideoPlayerControl : UserControl
-	{
-        
+    {
+        public VideoPlayerDataModel model;
 		public VideoPlayerControl()
 		{
 			this.InitializeComponent();
+
+            model = new VideoPlayerDataModel();
+
+		    this.DataContext = model;
 		}
 
-        private void PlayButton_Click(object sender, RoutedEventArgs e)
+        private bool videoPaused = true;
+        public void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            if ((string)this.PlayButton.Content == "Pause")
+            if (!videoPaused)
             {
                 VideoPlayer.Pause();
-                //wmpTimer.Stop();
-                PlayButton.Content = "Play";
+                videoPaused = true;
             }
             else
             {
                 VideoPlayer.Play();
-                //wmpTimer.Start();
-                PlayButton.Content = "Pause";
+                videoPaused = false;
             }
+            e.Handled = true;
         }
 
         public void LoadVideo()
@@ -56,6 +62,40 @@ namespace HapticScripter
 
             VideoPlayer.EndInit();
             VideoPlayer.Stop();
+
+            //model.Duration = VideoPlayer.NaturalDuration.TimeSpan.ToString();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            VideoPlayer.Visibility = Visibility.Visible;
+
+            this.LoadVideo();
+        }
+
+        public void BackwardButton_Click(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (videoPaused)
+            {
+                VideoPlayer.Position = VideoPlayer.Position - TimeSpan.FromMilliseconds(33.33);
+                return;
+            }
+
+            VideoPlayer.SpeedRatio = (VideoPlayer.SpeedRatio - 0.01);
+        }
+
+        public void ForwardButton_Click(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            if (videoPaused)
+            {
+                VideoPlayer.Position = VideoPlayer.Position + TimeSpan.FromMilliseconds(33.33);
+                return;
+            }
+
+            VideoPlayer.SpeedRatio++;
         }
 	}
 }

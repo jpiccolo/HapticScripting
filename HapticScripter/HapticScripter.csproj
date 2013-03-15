@@ -59,6 +59,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\VaginaBottomImagePositionConverter.cs" />
     <Compile Include="Converters\VaginaTopImagePositionConverter.cs" />
+    <Compile Include="Data\VideoPlayerDataModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -138,7 +139,7 @@
     <Resource Include="Resources\Backward.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Forward.png" />
+    <Resource Include="Resources\Forward.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

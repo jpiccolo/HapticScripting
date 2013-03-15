@@ -109,7 +109,7 @@
 
         <Slider x:Name="slider" HorizontalAlignment="Left" Margin="538,125,0,0" VerticalAlignment="Top" Width="114" Value="1" Minimum="0.01" Maximum="1" ValueChanged="slider_ValueChanged" Height="22"/>
         <Label Content="{Binding Value, ElementName=slider}" HorizontalAlignment="Left" Margin="692,121,0,0" VerticalAlignment="Top" Height="25.96" Width="16.47"/>
-        <local:VideoPlayerControl Margin="10,10,369.997,279.641" Grid.RowSpan="2"/>
+        <local:VideoPlayerControl x:Name="VideoPlayerControl" Margin="10,10,369.997,279.641" Grid.RowSpan="2"/>
         
     </Grid>
 </Window>
