@@ -49,7 +49,9 @@ namespace HapticScripter
 
             data.Add(new HapticEvent());
 
-
+            
+            KeyBindings.MyCommands.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Alt));
+            CommandBindings.Add(new CommandBinding(KeyBindings.MyCommands, this.Button_Click));
 
             this.SetValue(TopVectorData, data);
             this.DataContext = this;
@@ -59,25 +61,13 @@ namespace HapticScripter
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            VideoPlayer.Visibility = Visibility.Visible;
+            
 
 
             Header.Width = 1000;
             VisualHost = new HeaderVisualHost((int)this.Header.Width, ViewLevel.Level1);
 
-            VideoPlayer.BeginInit();
-            VideoPlayer.Source = new Uri(@"C:\Users\jpiccolo\Desktop\New folder\out.wmv", UriKind.RelativeOrAbsolute);
 
-            VideoPlayer.LoadedBehavior = VideoPlayer.UnloadedBehavior = MediaState.Manual;
-            VideoPlayer.MediaOpened += delegate
-            {
-                //VideoSlider.Maximum =
-                //    WMPlayer.NaturalDuration.TimeSpan.TotalMilliseconds;
-                //mre.Set();
-            };
-
-            VideoPlayer.EndInit();
-            VideoPlayer.Stop();
         }
 
         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -95,24 +85,13 @@ namespace HapticScripter
         private void speedRation_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
 
-            VideoPlayer.SpeedRatio = (double)speedRation.Value;
+            //VideoPlayer.SpeedRatio = (double)speedRation.Value;
             //mre.WaitOne(5000);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if ((string)this.PlayButton.Content == "Pause")
-            {
-                VideoPlayer.Pause();
-                //wmpTimer.Stop();
-                PlayButton.Content = "Play";
-            }
-            else
-            {
-                VideoPlayer.Play();
-                //wmpTimer.Start();
-                PlayButton.Content = "Pause";
-            }
+
         }
 
 
