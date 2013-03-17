@@ -1,0 +1,99 @@
+<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:UI="clr-namespace:HapticScripter.UI"
+	xmlns:local="clr-namespace:HapticScripter"
+	xmlns:Data="clr-namespace:HapticScripter.Data"
+	xmlns:DirectShowControls="clr-namespace:WPFMediaKit.DirectShow.Controls;assembly=WPFMediaKit" mc:Ignorable="d"
+	x:Class="HapticScripter.UserControls.VideoPlayerControlModel"
+	x:Name="VPC" Loaded="UserControl_Loaded" Height="298.359" Width="453.003" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid x:Name="LayoutRoot" Background="#FF828282" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="83*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="34*"/>
+        </Grid.RowDefinitions>
+
+        <MediaElement Volume="{Binding Value, ElementName=draggableSlider}" x:Name="VideoPlayer" ScrubbingEnabled="True" LoadedBehavior="Manual"/>
+        <!--<DirectShowControls:MediaUriElement
+                                                    x:Name="VideoPlayer"
+                                                    Volume="1"
+                                                    Stretch="Uniform"
+                                                    VideoRenderer="VideoMixingRenderer9"
+                                                    LoadedBehavior="Play"
+                                                    SpeedRatio="1"
+                                                    Loop="True" />-->
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Background="#FF2D2D30" >
+            <Grid Width="46">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Speed" Padding="0" Foreground="White" />
+                <Label Grid.Row="1" x:Name="speedRatioLabel" Content="{Binding SpeedRatio}" Padding="0" Foreground="White"/>
+            </Grid>
+
+            <Label Content="|" Padding="0"/>
+
+            <Grid Width="46">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Duration" Padding="0" Foreground="White"/>
+                <Label Grid.Row="1" x:Name="DurationLabel"  Padding="0" Content="{Binding Duration}" Foreground="White" />
+            </Grid>
+        </StackPanel>
+        <Grid Grid.Row="2">
+        	<Grid.ColumnDefinitions>
+        		<ColumnDefinition Width="49*"/>
+        		<ColumnDefinition Width="12*"/>
+        	</Grid.ColumnDefinitions>
+
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+				<Grid HorizontalAlignment="Right">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1*"/>
+						<ColumnDefinition Width="20"/>
+						<ColumnDefinition Width="1*"/>
+						<ColumnDefinition Width="20"/>
+						<ColumnDefinition Width="1*"/>
+						<ColumnDefinition Width="1*"/>
+					</Grid.ColumnDefinitions>
+				
+					<Button x:Name="BackwardButton" Grid.Column="0" Click="BackwardButton_Click" 
+						Style="{DynamicResource NoChromeButton}" >
+						<Image Source="\Resources\Backward.png" Stretch="None" ToolTip="Alt+a"/>
+					</Button>
+
+					<Button x:Name="PlayButton" Click="PlayButton_Click"																		Style="{DynamicResource NoChromeButton}"  Grid.Column="2">
+						<Image Source="\Resources\PlayPause.png" Stretch="None" ToolTip="Alt+s" />
+					</Button>
+
+					<Button x:Name="ForwardButton" Grid.Column="4" Click="ForwardButton_Click"																Style="{DynamicResource NoChromeButton}">
+						<Image Source="\Resources\Forward.png" Stretch="None" ToolTip="Alt+d"/>
+					</Button>
+
+				</Grid>
+			</StackPanel>
+
+        	<UI:DraggableSlider x:Name="draggableSlider" Style="{DynamicResource VolumeSliderStyle}" Value="100" SmallChange="5" Maximum="100" BorderBrush="#FFFFFBFB" Margin="0,8.238,10,0" Grid.Column="1" >
+        		<UI:DraggableSlider.Background>
+        			<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+        				<GradientStop Offset="0" Color="#FF00FF00"/>
+        				<GradientStop Offset="0.618" Color="#FFFFFF00"/>
+        				<GradientStop Offset="1" Color="#FFFF0000"/>
+        			</LinearGradientBrush>
+        		</UI:DraggableSlider.Background>
+        	</UI:DraggableSlider>
+        </Grid>
+
+        <Slider x:Name="speedRation" HorizontalAlignment="Left" Margin="37,28,0,0" VerticalAlignment="Top" Width="114" Value="1" Minimum="0.001" Maximum="8" TickFrequency="0.1" RenderTransformOrigin="1.018,0.326" Height="22" Grid.Row="3"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="41,10,0,0" TextWrapping="Wrap" Text="{Binding SpeedRatio, ElementName=VideoPlayer}" VerticalAlignment="Top" Height="13" Width="110" Grid.Row="3"/>
+    </Grid>
+</UserControl>

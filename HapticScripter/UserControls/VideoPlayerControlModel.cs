@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace HapticScripter.Data
+namespace HapticScripter.UserControls
 {
+    using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Windows.Controls;
 
-    public class VideoPlayerDataModel : INotifyPropertyChanged
+    public partial class VideoPlayerControlModel : UserControl
     {
         // boiler-plate
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
+            PropertyChangedEventHandler handler = this.PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
         protected bool SetField<T>(ref T field, T value, string propertyName)
         {
             if (EqualityComparer<T>.Default.Equals(field, value)) return false;
             field = value;
-            OnPropertyChanged(propertyName);
+            this.OnPropertyChanged(propertyName);
             return true;
         }
 
@@ -28,15 +25,15 @@ namespace HapticScripter.Data
         private int speedRatio;
         public int SpeedRatio
         {
-            get { return speedRatio; }
-            set { this.SetField(ref speedRatio, value, "SpeedRatio"); }
+            get { return this.speedRatio; }
+            set { this.SetField(ref this.speedRatio, value, "SpeedRatio"); }
         }
 
-        private string duration;
+        private string duration = "21";
         public string Duration
         {
-            get { return duration; }
-            set { this.SetField(ref duration, value, "Duration"); }
+            get { return this.duration; }
+            set { this.SetField(ref this.duration, value, "Duration"); }
         }
     }
 }
