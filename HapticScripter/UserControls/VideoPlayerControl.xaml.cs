@@ -1,6 +1,7 @@
 namespace HapticScripter.UserControls
 {
     using System;
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
@@ -37,16 +38,17 @@ namespace HapticScripter.UserControls
                 VideoPlayer.Clock.Controller.Begin();
         }
 
-        private MediaTimeline MediaTimeLine;
-
+        
         public void LoadVideo()
         {
             this.VideoPlayer.BeginInit();
             var uri = new Uri(@"C:\a.wmv", UriKind.RelativeOrAbsolute);
             this.VideoPlayer.Source = uri;
 
-            MediaTimeLine = new MediaTimeline(uri);
-            MediaTimeLine.CurrentTimeInvalidated += new EventHandler(MTimeline_CurrentTimeInvalidated);
+            var MediaTimeLine = new MediaTimeline(uri);
+            
+            MediaTimeLine.CurrentTimeInvalidated += this.PositionChanged;
+            MediaTimeLine.CurrentGlobalSpeedInvalidated += SpeedRatioChanged;
             VideoPlayer.Clock = MediaTimeLine.CreateClock(true) as MediaClock;
             VideoPlayer.Clock.Controller.Stop();
 
@@ -61,14 +63,22 @@ namespace HapticScripter.UserControls
 
             this.VideoPlayer.EndInit();
             this.VideoPlayer.Stop();
+
+            SpeedRatio = VideoPlayer.Clock.Controller.SpeedRatio.ToString(CultureInfo.InvariantCulture);
+
             //Duration = "kdnf";
             //Duration = VideoPlayer.NaturalDuration.TimeSpan.ToString();
         }
 
-        private void MTimeline_CurrentTimeInvalidated(object sender, EventArgs e)
+        private void SpeedRatioChanged(object sender, EventArgs e)
+        {
+            SpeedRatio = VideoPlayer.Clock.Controller.SpeedRatio.ToString("#.##", CultureInfo.InvariantCulture);
+            //throw new NotImplementedException();
+        }
+
+        private void PositionChanged(object sender, EventArgs e)
         {
             Console.WriteLine(VideoPlayer.Clock.CurrentTime.Value.TotalSeconds);
-
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

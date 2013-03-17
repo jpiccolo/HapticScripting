@@ -1,7 +1,9 @@
 namespace HapticScripter.UserControls
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Globalization;
     using System.Windows.Controls;
 
     public partial class VideoPlayerControlModel : UserControl
@@ -22,11 +24,11 @@ namespace HapticScripter.UserControls
         }
 
 
-        private int speedRatio;
-        public int SpeedRatio
+        private double speedRatio;
+        public string SpeedRatio
         {
-            get { return this.speedRatio; }
-            set { this.SetField(ref this.speedRatio, value, "SpeedRatio"); }
+            get { return speedRatio.ToString("x#.##", CultureInfo.InvariantCulture); }
+            set { this.SetField(ref this.speedRatio, Convert.ToDouble(value), "SpeedRatio"); }
         }
 
         private string duration = "21";

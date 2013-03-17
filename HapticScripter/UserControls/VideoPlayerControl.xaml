@@ -47,6 +47,17 @@
                 <Label Grid.Row="0" Content="Duration" Padding="0" Foreground="White"/>
                 <Label Grid.Row="1" x:Name="DurationLabel"  Padding="0" Content="{Binding Duration}" Foreground="White" />
             </Grid>
+
+            <Grid Width="46">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Position" Padding="0" Foreground="White"/>
+                <Label Grid.Row="1" x:Name="PositionLabel"  Padding="0" Content="{Binding Duration}" Foreground="White" />
+                
+            </Grid>
+
         </StackPanel>
         <Grid Grid.Row="2">
         	<Grid.ColumnDefinitions>
