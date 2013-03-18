@@ -26,10 +26,47 @@
 
         #endregion
 
+        private double videoPositionMilliSeconds;
+        public double VideoPositionMilliSeconds
+        {
+            get { return videoPositionMilliSeconds; }
+            set
+            {
+                this.SetField(ref this.videoPositionMilliSeconds, value, "VideoPositionMilliSeconds");
+            }
+        }
+
+
         #region Public Properties
 
-        public TimeSpan Duration { get { return this.duration; } set { this.SetField(ref this.duration, value, "Duration"); } }
-        public TimeSpan Position { get { return this.position; } set { this.SetField(ref this.position, value, "Position"); } }
+        public TimeSpan Duration
+        {
+            get { return this.duration; } 
+            set
+            {
+                this.SetField(ref this.duration, value, "Duration");
+                AppViewModel.TimelineControlViewModel.HeaderWidth = (int)(this.duration.TotalMilliseconds / 2);
+            }
+        }
+
+        private int updateLineCount;
+        public TimeSpan Position
+        {
+            get { return this.position; } 
+            set
+            {
+                this.SetField(ref this.position, value, "Position");
+                var milliSec = position.TotalMilliseconds;
+                VideoPositionMilliSeconds = milliSec;
+                //updateLineCount++;
+                //if (updateLineCount > 10)
+                //{
+                //    var milliSec = position.TotalMilliseconds;
+                //    VideoPositionMilliSeconds = milliSec;
+                //    updateLineCount = 0;
+                //}
+            }
+        }
         public double SpeedRatio { get { return this.speedRatio; } set { this.SetField(ref this.speedRatio, value, "SpeedRatio"); } }
 
         #endregion

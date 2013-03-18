@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 namespace HapticScripter.UserControls
 {
     using System.ComponentModel;
+    using System.Windows.Threading;
 
     using HapticScripter.Data;
     using HapticScripter.ViewModel;
@@ -31,23 +32,32 @@ namespace HapticScripter.UserControls
 
         private void TimelinesUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ((AppViewModel)this.DataContext).TimelineControlViewModel.HeaderWidth = 1000;
-
-
-
             BindingList<HapticEvent> blah = new BindingList<HapticEvent>();
             blah.Add(new HapticEvent());
-            ((AppViewModel)this.DataContext).DataViewModel.TopAxisData = blah;
-            ((AppViewModel)this.DataContext).DataViewModel.BothAxisData = blah;
-            ((AppViewModel)this.DataContext).DataViewModel.BottomAxisData = blah;
-            ((AppViewModel)this.DataContext).DataViewModel.SqueezeAxisData = blah;
-            ((AppViewModel)this.DataContext).DataViewModel.TopPeriodicData = blah;
-            ((AppViewModel)this.DataContext).DataViewModel.BothPeriodicData = blah;
-            ((AppViewModel)this.DataContext).DataViewModel.BottomPeriodicData = blah;
-            ((AppViewModel)this.DataContext).DataViewModel.SqueezePeriodicData = blah;
-            ((AppViewModel)this.DataContext).DataViewModel.LubeAxisData = blah;
-            ((AppViewModel)this.DataContext).DataViewModel.HeatAxisData = blah;
-            ((AppViewModel)this.DataContext).DataViewModel.StopAxisData = blah;
+
+            AppViewModel.DataViewModel.TopAxisData = blah;
+            AppViewModel.DataViewModel.BothAxisData = blah;
+            AppViewModel.DataViewModel.BottomAxisData = blah;
+            AppViewModel.DataViewModel.SqueezeAxisData = blah;
+            AppViewModel.DataViewModel.TopPeriodicData = blah;
+            AppViewModel.DataViewModel.BothPeriodicData = blah;
+            AppViewModel.DataViewModel.BottomPeriodicData = blah;
+            AppViewModel.DataViewModel.SqueezePeriodicData = blah;
+            AppViewModel.DataViewModel.LubeAxisData = blah;
+            AppViewModel.DataViewModel.HeatAxisData = blah;
+            AppViewModel.DataViewModel.StopAxisData = blah;
+        }
+
+        private void TimelineScroller_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            AppViewModel.TimelineControlViewModel.TimelineScrollViewerViewportWidth = TimelineScroller.ViewportWidth;
+        }
+
+        private void Line_LayoutUpdated(object sender, EventArgs e)
+        {
+            //var d = AppViewModel.VideoPlayerControlViewModel.Position.TotalMilliseconds / 2;
+            //d = d - (TimelineScroller.ViewportWidth / 2);
+            //TimelineScroller.ScrollToHorizontalOffset(d);
         }
     }
 }

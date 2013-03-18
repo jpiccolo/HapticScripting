@@ -3,9 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:UI="clr-namespace:HapticScripter.UI"
-	xmlns:local="clr-namespace:HapticScripter"
-	xmlns:Data="clr-namespace:HapticScripter.Data"
-	xmlns:DirectShowControls="clr-namespace:WPFMediaKit.DirectShow.Controls;assembly=WPFMediaKit" xmlns:ViewModel="clr-namespace:HapticScripter.ViewModel" xmlns:VideoPlayer="clr-namespace:HapticScripter.Converters.VideoPlayer" mc:Ignorable="d"
+    xmlns:ViewModel="clr-namespace:HapticScripter.ViewModel" xmlns:VideoPlayer="clr-namespace:HapticScripter.Converters.VideoPlayer" mc:Ignorable="d"
 	x:Class="HapticScripter.UserControls.VideoPlayerControl"
 	x:Name="VPC" Loaded="UserControl_Loaded" Height="298.359" Width="453.003">
 
@@ -13,12 +11,10 @@
         <VideoPlayer:VideoPlayerSpeedRatioConverter x:Key="VideoPlayerSpeedRatioConverter"/>
         <VideoPlayer:VideoPlayerTimeSpanToDisplayConverter x:Key="VideoPlayerTimeSpanToDisplayConverter"/>
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <ViewModel:AppViewModel/>
+    </UserControl.DataContext>
     <Grid x:Name="LayoutRoot" Background="#FF2D2D30" >
-
-        <Grid.DataContext>
-            <ViewModel:VideoPlayerControlViewModel/>
-        </Grid.DataContext>
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="139*"/>
             <ColumnDefinition Width="175*"/>
@@ -35,51 +31,54 @@
             <MediaElement Volume="{Binding Value, ElementName=draggableSlider}" x:Name="VideoPlayer" ScrubbingEnabled="True" LoadedBehavior="Manual"/>
 
         </Border>
+        <Border Grid.Row="1" Grid.ColumnSpan="3" BorderBrush="#FF686868" BorderThickness="2,0,2,2" >
 
-        <Grid Grid.Row="1" Grid.ColumnSpan="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="72"/>
-                <ColumnDefinition Width="72"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.RowSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="72"/>
+                    <ColumnDefinition Width="72"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="Speed" Padding="1" Foreground="White" />
-                <Label Grid.Row="1" x:Name="speedRatioLabel" Padding="1" Content="{Binding SpeedRatio, Converter={StaticResource VideoPlayerSpeedRatioConverter}}" Foreground="White"/>
+
+                <Grid Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Speed" Padding="1" Foreground="White" />
+                    <Label Grid.Row="1" x:Name="speedRatioLabel" Padding="1" Content="{Binding VideoPlayerControlViewModel.SpeedRatio, Converter={StaticResource VideoPlayerSpeedRatioConverter}}" Foreground="White"/>
+                </Grid>
+
+                <Border Grid.Column="1" Grid.RowSpan="2" BorderBrush="#FF686868" BorderThickness="2,0,0,0" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Duration" Padding="1" Foreground="White" />
+                        <Label Grid.Row="1" x:Name="DurationLabel" Padding="1" Content="{Binding VideoPlayerControlViewModel.Duration, Converter={StaticResource VideoPlayerTimeSpanToDisplayConverter}}" Foreground="White" />
+
+                    </Grid>
+
+                </Border>
+                <Border Grid.Column="2" Grid.RowSpan="2" BorderBrush="#FF686868" BorderThickness="2,0,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Position" Padding="1" Foreground="White" />
+                        <Label Grid.Row="1" x:Name="PositionLabel" Padding="1" Content="{Binding VideoPlayerControlViewModel.Position, Converter={StaticResource VideoPlayerTimeSpanToDisplayConverter}}" Foreground="White" />
+                    </Grid>
+                </Border>
+
             </Grid>
 
-            <Border Grid.Column="1" Grid.RowSpan="2" BorderBrush="#FF686868" BorderThickness="2,0,0,0" >
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Duration" Padding="1" Foreground="White" />
-                    <Label Grid.Row="1" x:Name="DurationLabel" Padding="1" Content="{Binding Duration, Converter={StaticResource VideoPlayerTimeSpanToDisplayConverter}}" Foreground="White" />
-
-                </Grid>
-
-            </Border>
-            <Border Grid.Column="2" Grid.RowSpan="2" BorderBrush="#FF686868" BorderThickness="2,0,0,0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Position" Padding="1" Foreground="White" />
-                    <Label Grid.Row="1" x:Name="PositionLabel" Padding="1" Content="{Binding Position, Converter={StaticResource VideoPlayerTimeSpanToDisplayConverter}}" Foreground="White" />
-                </Grid>
-            </Border>
-
-        </Grid>
+        </Border>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" Grid.ColumnSpan="3" HorizontalAlignment="Center">
             <Button x:Name="BackwardButton" Grid.Column="0" Click="BackwardButton_Click" 
@@ -111,60 +110,7 @@
                 </UI:DraggableSlider.Background>
             </UI:DraggableSlider>
         </Grid>
-    </Grid>
-
-
-
-    <!--<Grid x:Name="LayoutRoot" Background="#FF2D2D30" >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="83*"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="34*"/>
-        </Grid.RowDefinitions>
-
-
-
         
-
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Background="#FF2D2D30" >
-
-
-        </StackPanel>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="49*"/>
-                <ColumnDefinition Width="12*"/>
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Grid HorizontalAlignment="Right">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-
-
-
-                </Grid>
-            </StackPanel>
-
-            <UI:DraggableSlider x:Name="draggableSlider" Style="{DynamicResource VolumeSliderStyle}" Value="100" SmallChange="5" Maximum="100" BorderBrush="#FFFFFBFB" Margin="0,8.238,10,0" Grid.Column="1" >
-                <UI:DraggableSlider.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Offset="0" Color="#FF00FF00"/>
-                        <GradientStop Offset="0.618" Color="#FFFFFF00"/>
-                        <GradientStop Offset="1" Color="#FFFF0000"/>
-                    </LinearGradientBrush>
-                </UI:DraggableSlider.Background>
-            </UI:DraggableSlider>
-        </Grid>
-    </Grid>-->
-
-
-
+        <Button Margin="0,0,47,14" Grid.Row="2" Content="skanvg" Click="Button_Click" />
+    </Grid>
 </UserControl>

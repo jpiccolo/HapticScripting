@@ -90,6 +90,8 @@
     <Compile Include="Converters\VaginaTopImagePositionConverter.cs" />
     <Compile Include="Converters\VideoPlayer\VideoPlayerSpeedRatioConverter.cs" />
     <Compile Include="Converters\VideoPlayer\VideoPlayerTimeSpanToDisplayConverter.cs" />
+    <Compile Include="Converters\VideoPositionMilliSecondsToTimelineX.cs" />
+    <Compile Include="Converters\VideoPositionToTimelineX.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -115,9 +117,13 @@
     </Compile>
     <Compile Include="UI\DragCanvas.cs" />
     <Compile Include="UI\DraggableSlider.cs" />
+    <Compile Include="UI\FormatCommands.cs" />
     <Compile Include="UI\HeaderVisualHost.cs" />
     <Compile Include="UI\KeyBindings.cs" />
+    <Compile Include="UI\LineVisualHost.cs" />
     <Compile Include="UI\MouseOperations.cs" />
+    <Compile Include="UI\ScrollViewerBinding.cs" />
+    <Compile Include="UI\ScrollViewerHelper.cs" />
     <Compile Include="UserControls\PenisDragCanvasControl.xaml.cs">
       <DependentUpon>PenisDragCanvasControl.xaml</DependentUpon>
     </Compile>

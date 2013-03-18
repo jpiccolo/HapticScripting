@@ -4,152 +4,128 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModel="clr-namespace:HapticScripter.ViewModel"
-             xmlns:Converters="clr-namespace:HapticScripter.Converters" x:Name="Timelines" x:Class="HapticScripter.UserControls.TimelineControl" 
+             xmlns:Converters="clr-namespace:HapticScripter.Converters" 
+             x:Name="Timelines" x:Class="HapticScripter.UserControls.TimelineControl" 
              mc:Ignorable="d" 
              d:DesignHeight="300" Width="798.925" Loaded="TimelinesUserControl_Loaded" Background="#FF1C1C1C">
     <UserControl.Resources>
         <Converters:HapticEventToPointsConverter x:Key="HapticEventToPointsConverter" />
+        <Converters:VideoPositionMilliSecondsToTimelineX x:Key="VideoPositionMilliSecondsToTimelineX" />
     </UserControl.Resources>
     <UserControl.DataContext>
         <ViewModel:AppViewModel/>
     </UserControl.DataContext>
-    <Grid>
-            <Grid>
+    <Grid Width="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="47"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="817*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Margin="0,0,0,10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="47"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="12"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="817*"/>
-                </Grid.ColumnDefinitions>
+                <Label Content="Zoom" Foreground="White" VerticalAlignment="Bottom" Padding="0" Height="16" Margin="0,-4,0,0" />
+                <Slider x:Name="ZoomSlider" Grid.Row="1" Value="1" Minimum="0.01" Maximum="1" Padding="4" Margin="5,0" />
+            </Grid>
 
-                <Grid Margin="0,0,0,10">
+            <GroupBox Header="Vectors" Grid.RowSpan="5" FontSize="10" Margin="0,37,0,0" BorderThickness="0.7" Foreground="White" />
+            <Label Content="Top" Grid.Row="1" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
+            <Label Content="Both" Grid.Row="2" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
+            <Label Content="Bottom" Grid.Row="3" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
+            <Label Content="Squeeze" Grid.Row="4" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
+            <GroupBox Header="Periodic" Grid.Row="5" FontSize="10" Grid.RowSpan="4" BorderThickness="0.7" Foreground="White"/>
+            <Label Content="Top" Grid.Row="5" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
+            <Label Content="Both" Grid.Row="6" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
+            <Label Content="Bottom" Grid.Row="7" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
+            <Label Content="Squeeze" Grid.Row="8" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
+            <Label Content="Lube" Grid.Row="9" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
+            <Label Content="Heat" Grid.Row="10" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
+            <Label Content="Stop" Grid.Row="11" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
+
+            <ScrollViewer Grid.Column="1" Grid.RowSpan="12" Template="{DynamicResource TimeLineScrollViewerTemplate}" 
+				x:Name="TimelineScroller" ClipToBounds="True" VerticalScrollBarVisibility="Disabled" 
+				Focusable="False" HorizontalScrollBarVisibility="Visible" 
+				Visibility="Visible" 
+                SizeChanged="TimelineScroller_SizeChanged">
+
+                <Grid x:Name="TimelineGrid" ClipToBounds="True">
+                    <Grid.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Grid.RenderTransform>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Label Content="Zoom" Foreground="White" VerticalAlignment="Bottom" Padding="0" Height="16" Margin="0,-4,0,0" />
-                    <Slider x:Name="ZoomSlider" Grid.Row="1" Value="1" Minimum="0.01" Maximum="1" Padding="4" Margin="5,0" />
-                </Grid>
 
-                <GroupBox Header="Vectors" Grid.RowSpan="5" FontSize="10" Margin="0,37,0,0" BorderThickness="0.7" Foreground="White" />
-                <Label Content="Top" Grid.Row="1" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                               HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
-                <Label Content="Both" Grid.Row="2" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                               HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
-                <Label Content="Bottom" Grid.Row="3" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                               HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
-                <Label Content="Squeeze" Grid.Row="4" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                               HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
-                <GroupBox Header="Periodic" Grid.Row="5" FontSize="10" Grid.RowSpan="4" BorderThickness="0.7" Foreground="White"/>
-                <Label Content="Top" Grid.Row="5" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                               HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
-                <Label Content="Both" Grid.Row="6" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                               HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
-                <Label Content="Bottom" Grid.Row="7" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                               HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
-                <Label Content="Squeeze" Grid.Row="8" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                               HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
-                <Label Content="Lube" Grid.Row="9" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                               HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
-                <Label Content="Heat" Grid.Row="10" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                               HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
-                <Label Content="Stop" Grid.Row="11" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                               HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
+                    <Line StrokeThickness="1" Grid.Row="0" Grid.RowSpan="12" 
+                          Y2="{Binding ActualHeight, ElementName=TimelineGrid, Mode=OneWay}" 
+                          X1="{Binding VideoPlayerControlViewModel.VideoPositionMilliSeconds, Converter={StaticResource VideoPositionMilliSecondsToTimelineX}, Mode=OneWay}" 
+                          X2="{Binding VideoPlayerControlViewModel.VideoPositionMilliSeconds, Converter={StaticResource VideoPositionMilliSecondsToTimelineX}, Mode=OneWay}" 
+                          Stroke="#FFFB8C07" Panel.ZIndex="100" LayoutUpdated="Line_LayoutUpdated" />
 
-                <ScrollViewer Grid.Column="1" Grid.RowSpan="12" Template="{DynamicResource TimeLineScrollViewerTemplate}" 
-                                  x:Name="TimelineScroller" ClipToBounds="True" VerticalScrollBarVisibility="Disabled" 
-                                  Focusable="False" HorizontalScrollBarVisibility="Visible" 
-                                   Visibility="Visible" >
-                    <Grid x:Name="TimelineGrid" ClipToBounds="True">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                        </Grid.RowDefinitions>
-                        <Canvas x:Name="Header" Background="#FF2D2D30" Grid.Row="0" HorizontalAlignment="Left" RenderTransformOrigin="0.0,0.0">
-                            <Canvas.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}"/>
-                                    <SkewTransform/>
-                                    <RotateTransform/>
-                                    <TranslateTransform/>
-                                </TransformGroup>
-                            </Canvas.RenderTransform>
-                            <ContentPresenter Content="{Binding TimelineControlViewModel.HeaderVisualHost}" HorizontalAlignment="Left" />
-                        </Canvas>
+                    <!--<Canvas x:Name="Line" Grid.Row="0" Grid.RowSpan="12" Width="10" Panel.ZIndex="100" Style="{DynamicResource LineCanvasStyle}" Height="{Binding ActualHeight, ElementName=TimelineGrid, Mode=OneWay}" LayoutUpdated="Line_LayoutUpdated_1" >
+                        <ContentPresenter Content="{Binding TimelineControlViewModel.LineVisualHost}" Panel.ZIndex="100"  />
+                    </Canvas>-->
 
-                        <Grid Grid.Row="1">
-                            <ItemsControl x:Name="TopVectorItemControl" Grid.Row="1" ItemsSource="{Binding DataViewModel.TopAxisData}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
+                    
+                    <Canvas x:Name="Header" Background="#FF2D2D30" Grid.Row="0" HorizontalAlignment="Left" RenderTransformOrigin="0.0,0.0" Width="{Binding TimelineControlViewModel.HeaderWidth}">
+                        <ContentPresenter Content="{Binding TimelineControlViewModel.HeaderVisualHost}" HorizontalAlignment="Left" />
+                    </Canvas>
+
+                    <Grid Grid.Row="1">
+                        <ItemsControl x:Name="TopVectorItemControl" Grid.Row="1" ItemsSource="{Binding DataViewModel.TopAxisData}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
                                     <ZoomableCanvas Grid.Row="1" Background="#FF2D2D30" x:Name="TopAxis"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <ContentControl >
-                                            <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
-                                                <Polygon.RenderTransform>
-                                                    <TransformGroup>
-                                                        <ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}"/>
-                                                        <SkewTransform/>
-                                                        <RotateTransform/>
-                                                        <TranslateTransform/>
-                                                    </TransformGroup>
-                                                </Polygon.RenderTransform>
-                                                <Polygon.Points>
-                                                    <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
-                                                        <Binding ElementName="TopAxis" Path="ActualHeight"/>
-                                                        <Binding />
-                                                    </MultiBinding>
-                                                </Polygon.Points>
-                                            </Polygon>
-                                        </ContentControl>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-
-                        <Grid Grid.Row="2">
-                            <ItemsControl x:Name="BothVectorItemControl" ItemsSource="{Binding DataViewModel.BothAxisData}" Grid.Row="2">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                    <ZoomableCanvas Grid.Row="2" Background="#FF3F3F46" x:Name="BothAxis"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
                                     <ContentControl >
                                         <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
-                                            <Polygon.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}"/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform/>
-                                                </TransformGroup>
-                                            </Polygon.RenderTransform>
                                             <Polygon.Points>
                                                 <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
                                                     <Binding ElementName="TopAxis" Path="ActualHeight"/>
@@ -159,299 +135,251 @@
                                         </Polygon>
                                     </ContentControl>
                                 </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-
-                        <Grid Grid.Row="3">
-                        <ItemsControl x:Name="BottomVectorItemControl" ItemsSource="{Binding DataViewModel.BottomAxisData}" Grid.Row="3">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                    <ZoomableCanvas Background="#FF2D2D30" x:Name="BottomAxis" Grid.Row="3" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                    <ContentControl >
-                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
-                                            <Polygon.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}"/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform/>
-                                                </TransformGroup>
-                                            </Polygon.RenderTransform>
-                                            <Polygon.Points>
-                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
-                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
-                                                    <Binding />
-                                                </MultiBinding>
-                                            </Polygon.Points>
-                                        </Polygon>
-                                    </ContentControl>
-                                </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-
-                        <Grid Grid.Row="4">
-                            <ItemsControl x:Name="SqueezeVectorItemControl" ItemsSource="{Binding DataViewModel.SqueezeAxisData}" Grid.Row="4">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                    <ZoomableCanvas Background="#FF3F3F46" x:Name="SqueezeAxis" Grid.Row="4" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                    <ContentControl >
-                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
-                                            <Polygon.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}"/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform/>
-                                                </TransformGroup>
-                                            </Polygon.RenderTransform>
-                                            <Polygon.Points>
-                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
-                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
-                                                    <Binding />
-                                                </MultiBinding>
-                                            </Polygon.Points>
-                                        </Polygon>
-                                    </ContentControl>
-                                </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-
-                        <Grid Grid.Row="5">
-                            <ItemsControl x:Name="PeriodicTopItemControl" ItemsSource="{Binding DataViewModel.TopPeriodicData}" Grid.Row="5" >
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                    <ZoomableCanvas x:Name="PeriodicTopAxis" Background="#FF2D2D30" Grid.Row="5" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                    <ContentControl >
-                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
-                                            <Polygon.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}"/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform/>
-                                                </TransformGroup>
-                                            </Polygon.RenderTransform>
-                                            <Polygon.Points>
-                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
-                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
-                                                    <Binding />
-                                                </MultiBinding>
-                                            </Polygon.Points>
-                                        </Polygon>
-                                    </ContentControl>
-                                </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-
-                        <Grid Grid.Row="6">
-                        <ItemsControl x:Name="PeriodicBothItemControl" ItemsSource="{Binding DataViewModel.BothPeriodicData}" Grid.Row="6" >
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                    <ZoomableCanvas x:Name="PeriodicBothAxis" Background="#FF3F3F46" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                    <ContentControl >
-                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
-                                            <Polygon.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}"/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform/>
-                                                </TransformGroup>
-                                            </Polygon.RenderTransform>
-                                            <Polygon.Points>
-                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
-                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
-                                                    <Binding />
-                                                </MultiBinding>
-                                            </Polygon.Points>
-                                        </Polygon>
-                                    </ContentControl>
-                                </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-
-                        <Grid Grid.Row="7">
-                        <ItemsControl x:Name="PeriodicBottomItemControl" ItemsSource="{Binding DataViewModel.BottomPeriodicData}" Grid.Row="7" >
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                    <ZoomableCanvas x:Name="PeriodicBottomAxis"  Background="#FF2D2D30" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                    <ContentControl >
-                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
-                                            <Polygon.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}"/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform/>
-                                                </TransformGroup>
-                                            </Polygon.RenderTransform>
-                                            <Polygon.Points>
-                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
-                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
-                                                    <Binding />
-                                                </MultiBinding>
-                                            </Polygon.Points>
-                                        </Polygon>
-                                    </ContentControl>
-                                </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-
-                        <Grid Grid.Row="8">
-                        <ItemsControl x:Name="PeriodicSqueezeItemControl" ItemsSource="{Binding DataViewModel.SqueezePeriodicData}" Grid.Row="8" >
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                    <ZoomableCanvas x:Name="PeriodicSqueezeAxis" Background="#FF3F3F46" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                    <ContentControl >
-                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
-                                            <Polygon.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}"/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform/>
-                                                </TransformGroup>
-                                            </Polygon.RenderTransform>
-                                            <Polygon.Points>
-                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
-                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
-                                                    <Binding />
-                                                </MultiBinding>
-                                            </Polygon.Points>
-                                        </Polygon>
-                                    </ContentControl>
-                                </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-
-                        <Grid Grid.Row="9">
-                        <ItemsControl x:Name="LubeItemControl" ItemsSource="{Binding DataViewModel.LubeAxisData}" Grid.Row="9">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                    <ZoomableCanvas x:Name="LubeAxis" Background="#FF2D2D30" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                    <ContentControl >
-                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
-                                            <Polygon.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}"/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform/>
-                                                </TransformGroup>
-                                            </Polygon.RenderTransform>
-                                            <Polygon.Points>
-                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
-                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
-                                                    <Binding />
-                                                </MultiBinding>
-                                            </Polygon.Points>
-                                        </Polygon>
-                                    </ContentControl>
-                                </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-
-                        <Grid Grid.Row="10">
-                        <ItemsControl x:Name="HeatItemControl" ItemsSource="{Binding DataViewModel.HeatAxisData}" Grid.Row="10" >
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                    <ZoomableCanvas x:Name="HeatAxis" Background="#FF3F3F46" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                    <ContentControl >
-                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
-                                            <Polygon.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}"/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform/>
-                                                </TransformGroup>
-                                            </Polygon.RenderTransform>
-                                            <Polygon.Points>
-                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
-                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
-                                                    <Binding />
-                                                </MultiBinding>
-                                            </Polygon.Points>
-                                        </Polygon>
-                                    </ContentControl>
-                                </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-
-                        <Grid Grid.Row="11">
-                        <ItemsControl x:Name="StopItemControl" ItemsSource="{Binding DataViewModel.StopAxisData}" Grid.Row="11" Grid.Column="1" >
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                    <ZoomableCanvas x:Name="StopAxis" Background="#FF2D2D30" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                    <ContentControl >
-                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
-                                            <Polygon.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}"/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform/>
-                                                </TransformGroup>
-                                            </Polygon.RenderTransform>
-                                            <Polygon.Points>
-                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
-                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
-                                                    <Binding />
-                                                </MultiBinding>
-                                            </Polygon.Points>
-                                        </Polygon>
-                                    </ContentControl>
-                                </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </Grid>
-                </ScrollViewer>
-            </Grid>
+
+                    <Grid Grid.Row="2">
+                        <ItemsControl x:Name="BothVectorItemControl" ItemsSource="{Binding DataViewModel.BothAxisData}" Grid.Row="2">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ZoomableCanvas Grid.Row="2" Background="#FF3F3F46" x:Name="BothAxis"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl >
+                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
+                                            <Polygon.Points>
+                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
+                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
+                                                    <Binding />
+                                                </MultiBinding>
+                                            </Polygon.Points>
+                                        </Polygon>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <ItemsControl x:Name="BottomVectorItemControl" ItemsSource="{Binding DataViewModel.BottomAxisData}" Grid.Row="3">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ZoomableCanvas Background="#FF2D2D30" x:Name="BottomAxis" Grid.Row="3" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl >
+                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
+                                            <Polygon.Points>
+                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
+                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
+                                                    <Binding />
+                                                </MultiBinding>
+                                            </Polygon.Points>
+                                        </Polygon>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+
+                    <Grid Grid.Row="4">
+                        <ItemsControl x:Name="SqueezeVectorItemControl" ItemsSource="{Binding DataViewModel.SqueezeAxisData}" Grid.Row="4">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ZoomableCanvas Background="#FF3F3F46" x:Name="SqueezeAxis" Grid.Row="4" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl >
+                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
+                                            <Polygon.Points>
+                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
+                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
+                                                    <Binding />
+                                                </MultiBinding>
+                                            </Polygon.Points>
+                                        </Polygon>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+
+                    <Grid Grid.Row="5">
+                        <ItemsControl x:Name="PeriodicTopItemControl" ItemsSource="{Binding DataViewModel.TopPeriodicData}" Grid.Row="5" >
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ZoomableCanvas x:Name="PeriodicTopAxis" Background="#FF2D2D30" Grid.Row="5" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl >
+                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
+                                            <Polygon.Points>
+                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
+                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
+                                                    <Binding />
+                                                </MultiBinding>
+                                            </Polygon.Points>
+                                        </Polygon>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+
+                    <Grid Grid.Row="6">
+                        <ItemsControl x:Name="PeriodicBothItemControl" ItemsSource="{Binding DataViewModel.BothPeriodicData}" Grid.Row="6" >
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ZoomableCanvas x:Name="PeriodicBothAxis" Background="#FF3F3F46" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl >
+                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
+                                            <Polygon.Points>
+                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
+                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
+                                                    <Binding />
+                                                </MultiBinding>
+                                            </Polygon.Points>
+                                        </Polygon>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+
+                    <Grid Grid.Row="7">
+                        <ItemsControl x:Name="PeriodicBottomItemControl" ItemsSource="{Binding DataViewModel.BottomPeriodicData}" Grid.Row="7" >
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ZoomableCanvas x:Name="PeriodicBottomAxis"  Background="#FF2D2D30" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl >
+                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
+                                            <Polygon.Points>
+                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
+                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
+                                                    <Binding />
+                                                </MultiBinding>
+                                            </Polygon.Points>
+                                        </Polygon>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+
+                    <Grid Grid.Row="8">
+                        <ItemsControl x:Name="PeriodicSqueezeItemControl" ItemsSource="{Binding DataViewModel.SqueezePeriodicData}" Grid.Row="8" >
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ZoomableCanvas x:Name="PeriodicSqueezeAxis" Background="#FF3F3F46" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl >
+                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
+                                            <Polygon.Points>
+                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
+                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
+                                                    <Binding />
+                                                </MultiBinding>
+                                            </Polygon.Points>
+                                        </Polygon>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+
+                    <Grid Grid.Row="9">
+                        <ItemsControl x:Name="LubeItemControl" ItemsSource="{Binding DataViewModel.LubeAxisData}" Grid.Row="9">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ZoomableCanvas x:Name="LubeAxis" Background="#FF2D2D30" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl >
+                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
+                                            <Polygon.Points>
+                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
+                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
+                                                    <Binding />
+                                                </MultiBinding>
+                                            </Polygon.Points>
+                                        </Polygon>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+
+                    <Grid Grid.Row="10">
+                        <ItemsControl x:Name="HeatItemControl" ItemsSource="{Binding DataViewModel.HeatAxisData}" Grid.Row="10" >
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ZoomableCanvas x:Name="HeatAxis" Background="#FF3F3F46" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl >
+                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
+                                            <Polygon.Points>
+                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
+                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
+                                                    <Binding />
+                                                </MultiBinding>
+                                            </Polygon.Points>
+                                        </Polygon>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+
+                    <Grid Grid.Row="11">
+                        <ItemsControl x:Name="StopItemControl" ItemsSource="{Binding DataViewModel.StopAxisData}" Grid.Row="11" Grid.Column="1" >
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ZoomableCanvas x:Name="StopAxis" Background="#FF2D2D30" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl >
+                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
+                                            <Polygon.Points>
+                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
+                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
+                                                    <Binding />
+                                                </MultiBinding>
+                                            </Polygon.Points>
+                                        </Polygon>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>

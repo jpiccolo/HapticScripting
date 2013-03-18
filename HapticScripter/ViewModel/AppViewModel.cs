@@ -7,9 +7,26 @@ namespace HapticScripter.ViewModel
 {
     public class AppViewModel
     {
-        private TimelineControlViewModel timelineControlViewModel = new TimelineControlViewModel();
-        private DataViewModel dataViewModel = new DataViewModel();
-        public DataViewModel DataViewModel { get { return this.dataViewModel; } set { this.dataViewModel = value; } }
-        public TimelineControlViewModel TimelineControlViewModel { get { return this.timelineControlViewModel; } set { this.timelineControlViewModel = value; } }
+        private static TimelineControlViewModel timelineControlViewModel = new TimelineControlViewModel();
+        private static DataViewModel dataViewModel = new DataViewModel();
+        private static VideoPlayerControlViewModel videoPlayerControlViewModel = new VideoPlayerControlViewModel();
+
+
+        public static DataViewModel DataViewModel
+        {
+            get { return dataViewModel; } 
+            //set { AppViewModel.dataViewModel = value; }
+        }
+        public static TimelineControlViewModel TimelineControlViewModel
+        {
+            get { return timelineControlViewModel; } 
+            //set { this.timelineControlViewModel = value; }
+        }
+
+        public static VideoPlayerControlViewModel VideoPlayerControlViewModel
+        {
+            get { return videoPlayerControlViewModel; } 
+            //set { this.videoPlayerControlViewModel = value; }
+        }
     }
 }

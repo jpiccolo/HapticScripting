@@ -23,85 +23,164 @@ namespace HapticScripter.UserControls
         public void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
-            //Is Active
-            if (VideoPlayer.Clock.CurrentState == ClockState.Active)
+            var clock = this.VideoPlayer.Clock;
+            if (clock == null)
             {
-                //Is Paused
-                if (VideoPlayer.Clock.CurrentGlobalSpeed == 0.0)
-                    VideoPlayer.Clock.Controller.Resume();
-                else //Is Playing
-                    VideoPlayer.Clock.Controller.Pause();
+                return;
             }
-            else if (VideoPlayer.Clock.CurrentState == ClockState.Stopped) //Is Stopped
-                VideoPlayer.Clock.Controller.Begin();
+            //Is Active
+            switch (this.VideoPlayer.Clock.CurrentState)
+            {
+                case ClockState.Active:
+
+                    if (this.VideoPlayer.Clock.CurrentGlobalSpeed == 0.0)
+                    {
+                        if (clock.Controller != null)
+                        {
+                            clock.Controller.Resume();
+                        }
+                    }
+                    else //Is Playing
+                    {
+                        var clockController = this.VideoPlayer.Clock.Controller;
+                        if (clockController != null)
+                        {
+                            clockController.Pause();
+                        }
+                    }
+
+                    break;
+                case ClockState.Stopped:
+                    var controller = this.VideoPlayer.Clock.Controller;
+                    if (controller != null)
+                    {
+                        controller.Begin();
+                    }
+                    break;
+            }
         }
 
-        
         public void LoadVideo()
         {
             this.VideoPlayer.BeginInit();
             var uri = new Uri(@"C:\a.wmv", UriKind.RelativeOrAbsolute);
             this.VideoPlayer.Source = uri;
 
-            var MediaTimeLine = new MediaTimeline(uri);
+            var mediaTimeLine = new MediaTimeline(uri);
             
-            MediaTimeLine.CurrentTimeInvalidated += this.PositionChanged;
-            MediaTimeLine.CurrentGlobalSpeedInvalidated += SpeedRatioChanged;
+            mediaTimeLine.CurrentTimeInvalidated += this.PositionChanged;
+            mediaTimeLine.CurrentGlobalSpeedInvalidated += SpeedRatioChanged;
 
-            VideoPlayer.Clock = MediaTimeLine.CreateClock(true) as MediaClock;
-            
-            VideoPlayer.Clock.Controller.Stop();
+            VideoPlayer.Clock = mediaTimeLine.CreateClock(true) as MediaClock;
+
+            var mediaClock = this.VideoPlayer.Clock;
+            if (mediaClock != null)
+            {
+                if (mediaClock.Controller != null)
+                {
+                    mediaClock.Controller.Stop();
+                }
+            }
 
             this.VideoPlayer.LoadedBehavior = MediaState.Manual;
             this.VideoPlayer.UnloadedBehavior = MediaState.Manual;
             this.VideoPlayer.MediaOpened += delegate
-            {
-                ((VideoPlayerControlViewModel)this.VideoPlayer.DataContext).Duration = VideoPlayer.Clock.NaturalDuration.TimeSpan;
-                //VideoSlider.Maximum =
-                //    WMPlayer.NaturalDuration.TimeSpan.TotalMilliseconds;
-                //mre.Set();
-            };
+                                                {
+                                                    AppViewModel.VideoPlayerControlViewModel.Duration =
+                                                        VideoPlayer.Clock.NaturalDuration.TimeSpan;
+                                                    //VideoSlider.Maximum =
+                                                    //    WMPlayer.NaturalDuration.TimeSpan.TotalMilliseconds;
+                                                    //mre.Set();
+                                                };
 
             this.VideoPlayer.EndInit();
             this.VideoPlayer.Stop();
 
-            ((VideoPlayerControlViewModel)this.VideoPlayer.DataContext).SpeedRatio = VideoPlayer.Clock.Controller.SpeedRatio;
+            var clockController = this.VideoPlayer.Clock.Controller;
+            if (clockController != null)
+            {
+                AppViewModel.VideoPlayerControlViewModel.SpeedRatio = clockController.SpeedRatio;
+            }
         }
 
         private void SpeedRatioChanged(object sender, EventArgs e)
         {
-            ((VideoPlayerControlViewModel)this.VideoPlayer.DataContext).SpeedRatio = VideoPlayer.Clock.Controller.SpeedRatio;
+            var clockController = this.VideoPlayer.Clock.Controller;
+            if (clockController != null)
+            {
+                AppViewModel.VideoPlayerControlViewModel.SpeedRatio = clockController.SpeedRatio;
+            }
         }
+
+        private int updateCount;
 
         private void PositionChanged(object sender, EventArgs e)
         {
-            ((VideoPlayerControlViewModel)this.VideoPlayer.DataContext).Position = VideoPlayer.Clock.CurrentTime.Value;
+            if (this.VideoPlayer.Clock.CurrentState != ClockState.Active)
+            {
+                return;
+            }
+
+            var currentTime = this.VideoPlayer.Clock.CurrentTime;
+            if (currentTime != null)
+            {
+                //if (this.VideoPlayer.Clock.CurrentGlobalSpeed == 0.0)
+                //{
+                updateCount++;
+                if (updateCount > 10)
+                {
+                    Console.WriteLine(DateTime.Now.TimeOfDay);
+                    AppViewModel.VideoPlayerControlViewModel.Position = currentTime.Value;
+                    updateCount = 0;
+                }
+
+                //}
+                //else
+                //{
+                //    updateCount++;
+                //    if (updateCount > 10)
+                //    {
+                //        AppViewModel.VideoPlayerControlViewModel.Position = currentTime.Value;
+                //        updateCount = 0;
+                //    }
+                //}
+            }
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             this.VideoPlayer.Visibility = Visibility.Visible;
 
-            this.LoadVideo();
+            //this.LoadVideo();
         }
 
         public void BackwardButton_Click(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
-            if (VideoPlayer.Clock.CurrentState == ClockState.Active)
+            if (this.VideoPlayer.Clock.CurrentState != ClockState.Active)
             {
-                if (VideoPlayer.Clock.CurrentGlobalSpeed == 0.0)
+                return;
+            }
+            if (this.VideoPlayer.Clock.CurrentGlobalSpeed == 0.0)
+            {
+                var clockController = this.VideoPlayer.Clock.Controller;
+                if (clockController != null)
                 {
-                    VideoPlayer.Clock.Controller.Seek(
-                        (VideoPlayer.Clock.CurrentTime.Value - TimeSpan.FromMilliseconds(33.33)), TimeSeekOrigin.BeginTime);
-                    VideoPlayer.Clock.Controller.Pause();
-                    return;
+                    var currentTime = this.VideoPlayer.Clock.CurrentTime;
+                    if (currentTime != null)
+                    {
+                        clockController.Seek(
+                            (currentTime.Value - TimeSpan.FromMilliseconds(33.33)), TimeSeekOrigin.BeginTime);
+                    }
+                    clockController.Pause();
                 }
+                return;
+            }
 
-                if (VideoPlayer.Clock.Controller.SpeedRatio >= 0.11)
-                {
-                    VideoPlayer.Clock.Controller.SpeedRatio = (VideoPlayer.Clock.Controller.SpeedRatio - 0.1);
-                }
+            var controller = this.VideoPlayer.Clock.Controller;
+            if (controller != null && controller.SpeedRatio >= 0.11)
+            {
+                this.VideoPlayer.Clock.Controller.SpeedRatio = (this.VideoPlayer.Clock.Controller.SpeedRatio - 0.1);
             }
         }
 
@@ -109,21 +188,36 @@ namespace HapticScripter.UserControls
         {
             e.Handled = true;
 
-            if (VideoPlayer.Clock.CurrentState == ClockState.Active)
+            if (this.VideoPlayer.Clock.CurrentState != ClockState.Active)
             {
-                if (VideoPlayer.Clock.CurrentGlobalSpeed == 0.0)
-                {
-                    VideoPlayer.Clock.Controller.Seek(
-                        (VideoPlayer.Clock.CurrentTime.Value + TimeSpan.FromMilliseconds(33.33)), TimeSeekOrigin.BeginTime);
-                    VideoPlayer.Clock.Controller.Pause();
-                    return;
-                }
-
-                if (VideoPlayer.Clock.Controller.SpeedRatio <= 8)
-                {
-                    VideoPlayer.Clock.Controller.SpeedRatio = (VideoPlayer.Clock.Controller.SpeedRatio + 0.1);
-                }
+                return;
             }
+            if (this.VideoPlayer.Clock.CurrentGlobalSpeed == 0.0)
+            {
+                var clockController = this.VideoPlayer.Clock.Controller;
+                if (clockController != null)
+                {
+                    var currentTime = this.VideoPlayer.Clock.CurrentTime;
+                    if (currentTime != null)
+                    {
+                        clockController.Seek(
+                            (currentTime.Value + TimeSpan.FromMilliseconds(33.33)), TimeSeekOrigin.BeginTime);
+                    }
+                    clockController.Pause();
+                }
+                return;
+            }
+
+            var controller = this.VideoPlayer.Clock.Controller;
+            if (controller != null && controller.SpeedRatio <= 8)
+            {
+                this.VideoPlayer.Clock.Controller.SpeedRatio = (this.VideoPlayer.Clock.Controller.SpeedRatio + 0.1);
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.LoadVideo();
         }
 	}
 }

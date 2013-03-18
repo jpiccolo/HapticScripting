@@ -6,9 +6,6 @@
         xmlns:local="clr-namespace:HapticScripter" xmlns:UserControls="clr-namespace:HapticScripter.UserControls"
         x:Class="HapticScripter.MainWindow"
         Title="MainWindow" Height="611" Width="815" Loaded="Window_Loaded">
-    <Window.Resources>
-        <Converters:HapticEventToPointsConverter x:Key="HapticEventToPointsConverter" />
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="318*"/>
@@ -17,65 +14,5 @@
 
         <UserControls:VideoPlayerControl x:Name="VideoPlayerControl" Height="Auto" Width="Auto" />
         <UserControls:TimelineControl x:Name="TimelinesControl" Grid.Row="1" Width="Auto"/>
-        <!--<ScrollViewer x:Name="TimelineScroller" ClipToBounds="True" VerticalScrollBarVisibility="Disabled" 
-                                   Focusable="False" HorizontalScrollBarVisibility="Visible" 
-                                   Visibility="Visible" Margin="10,30,10,10" Grid.Row="1" Template="{StaticResource ScrollViewerHorizontalOnTopTemplate}" >
-
-            <Grid ClipToBounds="True">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-
-                <Canvas x:Name="Header" Background="#FF2D2D30" Grid.Row="0" HorizontalAlignment="Left" RenderTransformOrigin="0.0,0.0">
-                    <Canvas.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform ScaleX="{Binding Value, ElementName=slider}"/>
-                            <SkewTransform/>
-                            <RotateTransform/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Canvas.RenderTransform>
-                    <ContentPresenter Content="{Binding HeaderDrawingVisual}" HorizontalAlignment="Left" />
-                </Canvas>
-
-                <ItemsControl x:Name="TopVectorItemControl" Grid.Row="1" ItemsSource="{Binding TopVectorData}" >
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Canvas x:Name="TopAxis" Background="#FF65656C" Grid.Row="1"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <ContentControl >
-                                <Polygon x:Name="polygon" Stroke="Black"  RenderTransformOrigin="0.0,0.0">
-                                    <Polygon.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform ScaleX="{Binding Value, ElementName=slider}"/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform/>
-                                        </TransformGroup>
-                                    </Polygon.RenderTransform>
-                                    <Polygon.Points>
-                                        <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
-                                            <Binding ElementName="TopAxis" Path="ActualHeight"/>
-                                            <Binding />
-                                        </MultiBinding>
-                                    </Polygon.Points>
-                                </Polygon>
-                            </ContentControl>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Grid>
-        </ScrollViewer>
-
-        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="594,249,0,0" VerticalAlignment="Top" Width="114" Value="1" Minimum="0.01" Maximum="1" ValueChanged="slider_ValueChanged" Height="22"/>
-        <Label Content="{Binding Value, ElementName=slider}" HorizontalAlignment="Left" Margin="692,121,0,0" VerticalAlignment="Top" Height="25.96" Width="16.47"/>-->
-
-
-
-
     </Grid>
 </Window>
