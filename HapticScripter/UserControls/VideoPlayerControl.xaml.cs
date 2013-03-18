@@ -8,20 +8,18 @@ namespace HapticScripter.UserControls
     using System.Windows.Media.Animation;
 
     using HapticScripter.Data;
+    using HapticScripter.ViewModel;
 
     /// <summary>
 	/// Interaction logic for VideoPlayerControl.xaml
 	/// </summary>
-	public partial class VideoPlayerControlModel : UserControl
+	public partial class VideoPlayerControl : UserControl
     {
-		public VideoPlayerControlModel()
+		public VideoPlayerControl()
 		{
 			this.InitializeComponent();
-
-		    this.DataContext = this;
 		}
 
-        private bool videoPaused = true;
         public void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
@@ -49,13 +47,16 @@ namespace HapticScripter.UserControls
             
             MediaTimeLine.CurrentTimeInvalidated += this.PositionChanged;
             MediaTimeLine.CurrentGlobalSpeedInvalidated += SpeedRatioChanged;
+
             VideoPlayer.Clock = MediaTimeLine.CreateClock(true) as MediaClock;
+            
             VideoPlayer.Clock.Controller.Stop();
 
             this.VideoPlayer.LoadedBehavior = MediaState.Manual;
             this.VideoPlayer.UnloadedBehavior = MediaState.Manual;
             this.VideoPlayer.MediaOpened += delegate
             {
+                ((VideoPlayerControlViewModel)this.VideoPlayer.DataContext).Duration = VideoPlayer.Clock.NaturalDuration.TimeSpan;
                 //VideoSlider.Maximum =
                 //    WMPlayer.NaturalDuration.TimeSpan.TotalMilliseconds;
                 //mre.Set();
@@ -64,21 +65,17 @@ namespace HapticScripter.UserControls
             this.VideoPlayer.EndInit();
             this.VideoPlayer.Stop();
 
-            SpeedRatio = VideoPlayer.Clock.Controller.SpeedRatio.ToString(CultureInfo.InvariantCulture);
-
-            //Duration = "kdnf";
-            //Duration = VideoPlayer.NaturalDuration.TimeSpan.ToString();
+            ((VideoPlayerControlViewModel)this.VideoPlayer.DataContext).SpeedRatio = VideoPlayer.Clock.Controller.SpeedRatio;
         }
 
         private void SpeedRatioChanged(object sender, EventArgs e)
         {
-            SpeedRatio = VideoPlayer.Clock.Controller.SpeedRatio.ToString("#.##", CultureInfo.InvariantCulture);
-            //throw new NotImplementedException();
+            ((VideoPlayerControlViewModel)this.VideoPlayer.DataContext).SpeedRatio = VideoPlayer.Clock.Controller.SpeedRatio;
         }
 
         private void PositionChanged(object sender, EventArgs e)
         {
-            Console.WriteLine(VideoPlayer.Clock.CurrentTime.Value.TotalSeconds);
+            ((VideoPlayerControlViewModel)this.VideoPlayer.DataContext).Position = VideoPlayer.Clock.CurrentTime.Value;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

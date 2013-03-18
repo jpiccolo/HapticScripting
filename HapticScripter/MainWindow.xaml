@@ -8,52 +8,16 @@
         Title="MainWindow" Height="611" Width="815" Loaded="Window_Loaded">
     <Window.Resources>
         <Converters:HapticEventToPointsConverter x:Key="HapticEventToPointsConverter" />
-
-        <ControlTemplate x:Key="ScrollViewerHorizontalOnTopTemplate" TargetType="{x:Type ScrollViewer}">
-            <Grid x:Name="Grid" Background="{TemplateBinding Background}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" MinHeight="17"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Rectangle x:Name="Corner" 
-                    Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
-                    Grid.Column="1" Grid.Row="0"/>
-                <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" 
-                                        ContentTemplate="{TemplateBinding ContentTemplate}" Grid.Column="0" Grid.Row="1" 
-                                        CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False"/>
-                <ScrollBar x:Name="PART_VerticalScrollBar" 
-                    Cursor="Arrow" 
-                    Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" 
-                    Grid.Column="1" Grid.Row="1" 
-                    AutomationProperties.AutomationId="VerticalScrollBar" 
-                    Maximum="{TemplateBinding ScrollableHeight}" 
-                    Minimum="0" 
-                    Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" 
-                    ViewportSize="{TemplateBinding ViewportHeight}"/>
-                <ScrollBar x:Name="PART_HorizontalScrollBar" 
-                    Cursor="Arrow" 
-                    Grid.Column="0" 
-                    AutomationProperties.AutomationId="HorizontalScrollBar" 
-                    Maximum="{TemplateBinding ScrollableWidth}" 
-                    Minimum="0" 
-                    Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" 
-                    Orientation="Horizontal" 
-                    ViewportSize="{TemplateBinding ViewportWidth}"/>
-            </Grid>
-        </ControlTemplate>
-        
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="271*"/>
-            <RowDefinition Height="310*"/>
+            <RowDefinition Height="318*"/>
+            <RowDefinition Height="263*"/>
         </Grid.RowDefinitions>
 
-        <ScrollViewer x:Name="TimelineScroller" ClipToBounds="True" VerticalScrollBarVisibility="Disabled" 
+        <UserControls:VideoPlayerControl x:Name="VideoPlayerControl" Height="Auto" Width="Auto" />
+        <UserControls:TimelineControl x:Name="TimelinesControl" Grid.Row="1" Width="Auto"/>
+        <!--<ScrollViewer x:Name="TimelineScroller" ClipToBounds="True" VerticalScrollBarVisibility="Disabled" 
                                    Focusable="False" HorizontalScrollBarVisibility="Visible" 
                                    Visibility="Visible" Margin="10,30,10,10" Grid.Row="1" Template="{StaticResource ScrollViewerHorizontalOnTopTemplate}" >
 
@@ -107,9 +71,11 @@
             </Grid>
         </ScrollViewer>
 
-        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="538,125,0,0" VerticalAlignment="Top" Width="114" Value="1" Minimum="0.01" Maximum="1" ValueChanged="slider_ValueChanged" Height="22"/>
-        <Label Content="{Binding Value, ElementName=slider}" HorizontalAlignment="Left" Margin="692,121,0,0" VerticalAlignment="Top" Height="25.96" Width="16.47"/>
-        <UserControls:VideoPlayerControlModel x:Name="VideoPlayerControl" Margin="10,10,369.997,279.641" Grid.RowSpan="2"/>
-        
+        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="594,249,0,0" VerticalAlignment="Top" Width="114" Value="1" Minimum="0.01" Maximum="1" ValueChanged="slider_ValueChanged" Height="22"/>
+        <Label Content="{Binding Value, ElementName=slider}" HorizontalAlignment="Left" Margin="692,121,0,0" VerticalAlignment="Top" Height="25.96" Width="16.47"/>-->
+
+
+
+
     </Grid>
 </Window>

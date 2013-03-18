@@ -32,15 +32,6 @@ namespace HapticScripter
 
 
 
-        public enum ViewLevel
-        {
-            Level1 = 10,
-            Level2 = 20,
-            Level3 = 30,
-            Level4 = 40,
-            Level5 = 50
-        }
-
         public MainWindow()
         {
             InitializeComponent();
@@ -69,22 +60,22 @@ namespace HapticScripter
             
 
 
-            Header.Width = 1000;
-            VisualHost = new HeaderVisualHost((int)this.Header.Width, ViewLevel.Level1);
+            //Header.Width = 1000;
+            //VisualHost = new HeaderVisualHost((int)this.Header.Width, ViewLevel.Level1);
 
 
         }
 
         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (e.NewValue < 0.60)
-            {
-                VisualHost = new HeaderVisualHost((int)this.Header.Width, ViewLevel.Level3);
-            }
-            if(e.NewValue < 0.75)
-            {
-                VisualHost = new HeaderVisualHost((int)this.Header.Width, ViewLevel.Level2);
-            }
+            //if (e.NewValue < 0.60)
+            //{
+            //    VisualHost = new HeaderVisualHost((int)this.Header.Width, ViewLevel.Level3);
+            //}
+            //if(e.NewValue < 0.75)
+            //{
+            //    VisualHost = new HeaderVisualHost((int)this.Header.Width, ViewLevel.Level2);
+            //}
         }
 
         private void speedRation_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

@@ -15,12 +15,12 @@ namespace HapticScripter.Converters
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var pc = new PointCollection();
-            pc.Add(new Point(10, 255));
-            pc.Add(new Point(500, 255));
-            pc.Add(new Point(500, 200));
-            pc.Add(new Point(400, 150));
-            pc.Add(new Point(200, 150));
-            pc.Add(new Point(10, 200));
+            pc.Add(new Point(49, 23));
+            pc.Add(new Point(100, 23));
+            pc.Add(new Point(100, 14));
+            pc.Add(new Point(95, 5));
+            pc.Add(new Point(55, 5));
+            pc.Add(new Point(49, 14));
             return pc;
         }
 

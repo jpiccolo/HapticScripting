@@ -77,6 +77,9 @@
     <Reference Include="WPFMediaKit">
       <HintPath>..\..\..\..\Downloads\WPFMediaKit\WPFMediaKit.dll</HintPath>
     </Reference>
+    <Reference Include="ZoomableCanvas">
+      <HintPath>3rd Party\ZoomableCanvas.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -85,6 +88,8 @@
     </ApplicationDefinition>
     <Compile Include="Converters\VaginaBottomImagePositionConverter.cs" />
     <Compile Include="Converters\VaginaTopImagePositionConverter.cs" />
+    <Compile Include="Converters\VideoPlayer\VideoPlayerSpeedRatioConverter.cs" />
+    <Compile Include="Converters\VideoPlayer\VideoPlayerTimeSpanToDisplayConverter.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -116,11 +121,17 @@
     <Compile Include="UserControls\PenisDragCanvasControl.xaml.cs">
       <DependentUpon>PenisDragCanvasControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TimelineControl.xaml.cs">
+      <DependentUpon>TimelineControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\VideoPlayerControl.xaml.cs">
       <DependentUpon>VideoPlayerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\VideoPlayerControlModel.cs" />
+    <Compile Include="ViewModel\AppViewModel.cs" />
+    <Compile Include="ViewModel\DataViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\TimelineControlViewModel.cs" />
+    <Compile Include="ViewModel\VideoPlayerControlViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +155,10 @@
     <Page Include="UserControls\PenisDragCanvasControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\TimelineControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\VideoPlayerControl.xaml">
       <Generator>MSBuild:Compile</Generator>
