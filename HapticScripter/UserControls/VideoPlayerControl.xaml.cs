@@ -63,7 +63,7 @@ namespace HapticScripter.UserControls
         public void LoadVideo()
         {
             this.VideoPlayer.BeginInit();
-            var uri = new Uri(@"C:\a.wmv", UriKind.RelativeOrAbsolute);
+            var uri = new Uri(@"C:\tspdt4gq.r5g.wmv", UriKind.RelativeOrAbsolute);
             this.VideoPlayer.Source = uri;
 
             var mediaTimeLine = new MediaTimeline(uri);
@@ -101,6 +101,8 @@ namespace HapticScripter.UserControls
             {
                 AppViewModel.VideoPlayerControlViewModel.SpeedRatio = clockController.SpeedRatio;
             }
+
+
         }
 
         private void SpeedRatioChanged(object sender, EventArgs e)
@@ -129,8 +131,11 @@ namespace HapticScripter.UserControls
                 updateCount++;
                 if (updateCount > 10)
                 {
-                    Console.WriteLine(DateTime.Now.TimeOfDay);
+                    //Console.WriteLine(DateTime.Now.TimeOfDay);
                     AppViewModel.VideoPlayerControlViewModel.Position = currentTime.Value;
+                    var d = (currentTime.Value.TotalMilliseconds / 2) - (AppViewModel.TimelineControlViewModel.TimelineScroller.ViewportWidth / 2);
+
+                    AppViewModel.TimelineControlViewModel.TimelineScroller.ScrollToHorizontalOffset(d);
                     updateCount = 0;
                 }
 

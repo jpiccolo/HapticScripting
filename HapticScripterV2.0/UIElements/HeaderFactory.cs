@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HapticScripter.UI
+namespace HapticScripterV2._0.UIElements
 {
     using System.Globalization;
     using System.Windows;
     using System.Windows.Media;
 
-    using HapticScripter.ViewModel;
+    using HapticScripterV2._0.ViewModels;
 
-    public class HeaderVisualHost : FrameworkElement
+    public class HeaderFactory : FrameworkElement
     {
         #region Fields
 
@@ -23,7 +23,7 @@ namespace HapticScripter.UI
 
         #region Constructors and Destructors
 
-        public HeaderVisualHost(int width, TimelineControlViewModel.ViewLevel level)
+        public HeaderFactory(int width, TimelineViewModel.ViewLevel level)
         {
             children = new VisualCollection(this);
 
@@ -58,7 +58,7 @@ namespace HapticScripter.UI
                         double tempX = currentX;
                         switch (level)
                         {
-                            case TimelineControlViewModel.ViewLevel.Level1:
+                            case TimelineViewModel.ViewLevel.Level1:
                                 text = new FormattedText(
                                         currentTime.ToString(@"hh\:mm\:ss\.fff"),
                                         CultureInfo.CurrentCulture,
@@ -67,10 +67,10 @@ namespace HapticScripter.UI
                                         8,
                                         grayBrush);
                                 break;
-                            case TimelineControlViewModel.ViewLevel.Level2:
-                            case TimelineControlViewModel.ViewLevel.Level3:
-                            case TimelineControlViewModel.ViewLevel.Level4:
-                            case TimelineControlViewModel.ViewLevel.Level5:
+                            case TimelineViewModel.ViewLevel.Level2:
+                            case TimelineViewModel.ViewLevel.Level3:
+                            case TimelineViewModel.ViewLevel.Level4:
+                            case TimelineViewModel.ViewLevel.Level5:
                                 text = new FormattedText(
                                         currentTime.ToString(@"hh\:mm\:ss\.f"),
                                         CultureInfo.CurrentCulture,
@@ -92,7 +92,7 @@ namespace HapticScripter.UI
                         FormattedText text = null;
                         switch (level)
                         {
-                            case TimelineControlViewModel.ViewLevel.Level1:
+                            case TimelineViewModel.ViewLevel.Level1:
                                 text = new FormattedText(
                                         string.Format(".{0}", currentTime.Milliseconds),
                                         CultureInfo.CurrentCulture,
@@ -101,10 +101,10 @@ namespace HapticScripter.UI
                                         8,
                                         grayBrush);
                                 break;
-                            case TimelineControlViewModel.ViewLevel.Level2:
-                            case TimelineControlViewModel.ViewLevel.Level3:
-                            case TimelineControlViewModel.ViewLevel.Level4:
-                            case TimelineControlViewModel.ViewLevel.Level5:
+                            case TimelineViewModel.ViewLevel.Level2:
+                            case TimelineViewModel.ViewLevel.Level3:
+                            case TimelineViewModel.ViewLevel.Level4:
+                            case TimelineViewModel.ViewLevel.Level5:
                                 text = new FormattedText(
                                         string.Format("{0}", currentTime.ToString(@"ss\.f")),
                                         CultureInfo.CurrentCulture,
