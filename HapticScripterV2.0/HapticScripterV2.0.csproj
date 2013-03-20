@@ -34,6 +34,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\HapticScripter\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>3rd Party\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -58,12 +65,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\HapticEventToPointsConverter.cs" />
+    <Compile Include="Factories\ProjectFactory.cs" />
+    <Compile Include="Factories\RealTouchFactory.cs" />
+    <Compile Include="Factories\TimelineFactory.cs" />
     <Compile Include="Models\HapticEvent.cs" />
     <Compile Include="UIElements\HeaderFactory.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\DataViewModel.cs" />
     <Compile Include="ViewModels\TimelineViewModel.cs" />
     <Compile Include="ViewModels\VideoViewModel.cs" />
+    <Compile Include="Views\Menu.xaml.cs">
+      <DependentUpon>Menu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Timelines.xaml.cs">
       <DependentUpon>Timelines.xaml</DependentUpon>
     </Compile>
@@ -82,6 +95,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Timelines.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -130,6 +147,7 @@
   <ItemGroup>
     <Resource Include="Resources\PlayPause.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="HapticScripterV2._0.Views.Menu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <DockPanel Height="24" LastChildFill="False" VerticalAlignment="Top" Grid.ColumnSpan="2">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem x:Name="NewVideoProjectMenuItem" Header="_New Video Project" Click="MenuItem_NewProject_Clicked"/>
+                <MenuItem x:Name="OpenProjectMenuItem" Header="_Open Project" Click="MenuItem_OpenProject_Clicked"/>
+                <Separator />
+                <MenuItem x:Name="ImportScriptedVideoMenuItem" Header="_Import Scripted Video" Click="MenuItem_ImportScriptedVideo_Clicked"/>
+                <MenuItem x:Name="ImportScriptMenuItem" Header="_Import Script" Click="MenuItem_ImportScript_Clicked" IsEnabled="False"/>
+                <Separator />
+                <MenuItem x:Name="SaveMenuItem" Header="_Save" Click="MenuItem_Save_Clicked" IsEnabled="False"/>
+                <MenuItem x:Name="ExportScriptMenuItem" Header="_Export Script" Click="MenuItem_ExportScript_Click" IsEnabled="False" />
+                <MenuItem x:Name="ExportScriptedVideioMenuItem" Header="_Export Scripted Video" Click="MenuItem_ExportScriptedVideo_Click" IsEnabled="False" />
+                <Separator />
+                <MenuItem x:Name="CloseProjectMenuItem" Header="_Close Project" Click="MenuItem_CloseProject_Clicked" IsEnabled="False"/>
+                <Separator />
+                <MenuItem Header="_Exit" Click="MenuItem_Exit_Clicked"/>
+            </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem x:Name="FixErrorsMenuItem" Header="_Fix Errors" Click="MenuItem_FixErrors_Clicked" IsEnabled="False"/>
+                <MenuItem x:Name="ShiftAllMenuItem" Header="_Shift All" Click="MenuItem_ShiftAll_Clicked" IsEnabled="False"/>
+                <MenuItem Header="_Rip Script from Vid" Click="MenuItem_RipScript_Clicked" />
+                <Separator />
+                <MenuItem Header="_Preferences" Click="MenuItem_Preferences_Clicked"/>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_Check for updates..." Click="MenuItem_CheckUpdates_Clicked"/>
+                <Separator />
+                <MenuItem Header="_Open AppData Folder" Click="MenuItem_OpenAppDataFolder_Clicked"/>
+                <MenuItem Header="_About" Click="MenuItem_About_Clicked"/>
+                <MenuItem Header="_About Errors">
+                    <MenuItem Header="_Script command time exceeds the duration of the current item" Click="MenuItem_Errors_ScriptCommandExceeds" />
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+    </DockPanel>
+</UserControl>

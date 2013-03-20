@@ -2,10 +2,17 @@
 {
     #region
 
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.IO;
+    using System.Threading.Tasks;
 
+    using HapticScripterV2._0.Factories;
     using HapticScripterV2._0.Models;
+
+    using ICSharpCode.SharpZipLib.Core;
+    using ICSharpCode.SharpZipLib.Zip;
 
     #endregion
 
@@ -48,7 +55,23 @@
         public BindingList<HapticEvent> HeatAxisData { get { return this.heatAxisData; } set { this.SetField(ref this.heatAxisData, value, "HeatAxisData"); } }
         public BindingList<HapticEvent> LubeAxisData { get { return this.lubeAxisData; } set { this.SetField(ref this.lubeAxisData, value, "LubeAxisData"); } }
         public BindingList<HapticEvent> StopAxisData { get { return this.stopAxisData; } set { this.SetField(ref this.stopAxisData, value, "StopAxisData"); } }
-        
+
+        private string projectFilePath;
+        private string scriptFilePath;
+        private string videoFilePath;
+        private string infoFilePath;
+        private string projectName;
+        private double videoDuration;
+        private bool isDirty;
+
+        public string ProjectFilePath { get { return this.projectFilePath; } set { this.SetField(ref this.projectFilePath, value, "ProjectFilePath"); } }
+        public string ScriptFilePath { get { return this.scriptFilePath; } set { this.SetField(ref this.scriptFilePath, value, "ScriptFilePath"); } }
+        public string VideoFilePath { get { return this.videoFilePath; } set { this.SetField(ref this.videoFilePath, value, "VideoFilePath"); } }
+        public string InfoFilePath { get { return this.infoFilePath; } set { this.SetField(ref this.infoFilePath, value, "InfoFilePath"); } }
+        public string ProjectName { get { return this.projectName; } set { this.SetField(ref this.projectName, value, "ProjectName"); } }
+        public double VideoDuration { get { return this.videoDuration; } set { this.SetField(ref this.videoDuration, value, "VideoDuration"); } }
+        public bool IsDirty { get { return this.isDirty; } set { this.SetField(ref this.isDirty, value, "IsDirty"); } }
+
         #endregion
 
         #region Methods
@@ -74,5 +97,24 @@
         }
 
         #endregion
+
+        private Action<Task> projectCallback;
+        public void LoadProject(Action<Task> callback)
+        {
+            projectCallback = callback;
+
+            ProjectFactory.OpenProject(projectFilePath).ContinueWith(OnProjectLoaded);
+        }
+
+        private void OnProjectLoaded(Task obj)
+        {
+            
+            RealTouchFactory.ParseScript(AppViewModel.DataViewModel.ScriptFilePath).ContinueWith(OnScriptParsed);
+        }
+
+        private void OnScriptParsed(Task obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

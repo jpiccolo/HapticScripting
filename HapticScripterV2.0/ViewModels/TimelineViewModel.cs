@@ -6,10 +6,13 @@ using System.Text;
 namespace HapticScripterV2._0.ViewModels
 {
     using System.ComponentModel;
+    using System.Windows.Controls;
     using System.Windows.Media;
 
     public class TimelineViewModel : INotifyPropertyChanged
     {
+        public ScrollViewer TimelineScroller;
+
         private int headerWidth;
         public int HeaderWidth
         {
@@ -31,6 +34,13 @@ namespace HapticScripterV2._0.ViewModels
             Level3 = 30,
             Level4 = 40,
             Level5 = 50
+        }
+
+        private double videoPositionInTimelineX;
+        public double VideoPositionInTimelineX
+        {
+            get { return this.videoPositionInTimelineX; }
+            set { this.SetField(ref this.videoPositionInTimelineX, value, "VideoPositionInTimelineX"); }
         }
         
         public event PropertyChangedEventHandler PropertyChanged;

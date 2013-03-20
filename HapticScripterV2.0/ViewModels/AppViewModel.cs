@@ -5,16 +5,16 @@
         #region Static Fields
 
         private static readonly TimelineViewModel timelineViewModel = new TimelineViewModel();
-        //private static DataViewModel dataViewModel = new DataViewModel();
+        private static readonly DataViewModel dataViewModel = new DataViewModel();
         private static readonly VideoViewModel videoViewModel = new VideoViewModel();
 
         #endregion
 
-        //public static DataViewModel DataViewModel
-        //{
-        //    get { return dataViewModel; }
-        //    //set { AppViewModel.dataViewModel = value; }
-        //}
+        public static DataViewModel DataViewModel
+        {
+            get { return dataViewModel; }
+            //set { AppViewModel.dataViewModel = value; }
+        }
 
         #region Public Properties
 

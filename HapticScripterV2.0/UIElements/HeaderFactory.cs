@@ -23,17 +23,17 @@ namespace HapticScripterV2._0.UIElements
 
         #region Constructors and Destructors
 
-        public HeaderFactory(int width, TimelineViewModel.ViewLevel level)
+        public HeaderFactory(int start, int end, TimelineViewModel.ViewLevel level)
         {
             children = new VisualCollection(this);
 
             MyVisual = new DrawingVisual();
             children.Add(MyVisual);
 
-            var currentTime = new TimeSpan(0, 0, 0, 0, 0);
+            var currentTime = new TimeSpan(0, 0, 0, 0, start);
             const int everyXLine100 = 10;
             double currentX = 0;
-            var currentLine = 0;
+            var currentLine = start/5;
             double distanceBetweenLines = 5;
 
 
@@ -49,7 +49,7 @@ namespace HapticScripterV2._0.UIElements
 
             using (var dc = MyVisual.RenderOpen())
             {
-                while (currentX < width)
+                while (currentX < (end - start))
                 {
                     if (((currentLine % majorEveryXLine) == 0) && currentLine != 0)
                     {

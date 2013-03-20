@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModels="clr-namespace:HapticScripterV2._0.ViewModels" 
              x:Class="HapticScripterV2._0.Views.Video" 
-             mc:Ignorable="d" Height="391" Width="782">
+    x:Name="VideoUserControl"
+             mc:Ignorable="d" Height="391" Width="782" Loaded="VideoUserControl_Loaded">
     <UserControl.DataContext>
         <ViewModels:AppViewModel/>
     </UserControl.DataContext>

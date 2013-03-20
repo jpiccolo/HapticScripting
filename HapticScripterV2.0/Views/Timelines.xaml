@@ -6,7 +6,7 @@
              xmlns:Converters="clr-namespace:HapticScripterV2._0.Converters" xmlns:ViewModels="clr-namespace:HapticScripterV2._0.ViewModels"
              xmlns:ViewModel="clr-namespace:HapticScripter.ViewModel;assembly=HapticScripter"
              x:Class="HapticScripterV2._0.Views.Timelines"
-             mc:Ignorable="d" Height="316" Width="531">
+             mc:Ignorable="d" Height="316" Width="531" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <Converters:HapticEventToPointsConverter x:Key="HapticEventToPointsConverter" />
     </UserControl.Resources>
@@ -97,13 +97,16 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
-                    <!--<Line StrokeThickness="1" Grid.Row="0" Grid.RowSpan="12" 
-                          Y2="{Binding ActualHeight, ElementName=TimelineGrid, Mode=OneWay}" 
-                          X1="{Binding VideoPlayerControlViewModel.VideoPositionMilliSeconds, Converter={StaticResource VideoPositionMilliSecondsToTimelineX}, Mode=OneWay}" 
-                          X2="{Binding VideoPlayerControlViewModel.VideoPositionMilliSeconds, Converter={StaticResource VideoPositionMilliSecondsToTimelineX}, Mode=OneWay}" 
-                          Stroke="#FFFB8C07" Panel.ZIndex="100" />-->
+                    <Line StrokeThickness="1" Grid.Row="0" Grid.RowSpan="12" 
+						Y2="{Binding ActualHeight, ElementName=TimelineGrid, Mode=OneWay}" 
+						X1="{Binding TimelineViewModel.VideoPositionInTimelineX}" 
+						X2="{Binding TimelineViewModel.VideoPositionInTimelineX}"
+						Stroke="#FFFB8C07" Panel.ZIndex="100" />
 
-                    <Image x:Name="Header" Width="{Binding ViewModel:TimelineControlViewModel.HeaderWidth}" Grid.Row="0" RenderTransformOrigin="0.0,0.0" Source="{Binding TimelineViewModel.HeaderImageSource}" />
+
+                    <!--Width="{Binding ViewModel:TimelineControlViewModel.HeaderWidth}"-->
+                    <Image x:Name="Header" Width="{Binding ViewModel:TimelineControlViewModel.HeaderWidth}" Grid.Row="0" RenderTransformOrigin="0.0,0.0"  Source="{Binding TimelineViewModel.HeaderImageSource, PresentationTraceSources.TraceLevel=High}" Panel.ZIndex="100">
+                    </Image>
 
                     <Grid Grid.Row="1">
                         <ItemsControl x:Name="TopVectorItemControl" Grid.Row="1" ItemsSource="{Binding ViewModels:DataViewModel.TopAxisData}">
@@ -130,26 +133,13 @@
                     </Grid>
 
                     <Grid Grid.Row="2">
-                        <ItemsControl x:Name="BothVectorItemControl" ItemsSource="{Binding ViewModels:DataViewModel.BothAxisData}" Grid.Row="2">
+                        <ItemsControl x:Name="BothVectorItemControl" Grid.Row="2">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <ZoomableCanvas Grid.Row="2" Background="#FF3F3F46" x:Name="BothAxis"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <ContentControl >
-                                        <Polygon x:Name="polygon" Stroke="#FF686868" RenderTransformOrigin="0.0,0.0">
-                                            <Polygon.Points>
-                                                <MultiBinding Converter="{StaticResource HapticEventToPointsConverter}" PresentationTraceSources.TraceLevel="High">
-                                                    <Binding ElementName="TopAxis" Path="ActualHeight"/>
-                                                    <Binding />
-                                                </MultiBinding>
-                                            </Polygon.Points>
-                                        </Polygon>
-                                    </ContentControl>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
+                            <Button Content="Button" Height="24" Width="75" Click="Button_Click" VerticalAlignment="Bottom" Margin="0,0,0,76"/>
                         </ItemsControl>
                     </Grid>
 
