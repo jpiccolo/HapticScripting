@@ -92,6 +92,9 @@
     <Compile Include="Converters\VideoPlayer\VideoPlayerTimeSpanToDisplayConverter.cs" />
     <Compile Include="Converters\VideoPositionMilliSecondsToTimelineX.cs" />
     <Compile Include="Converters\VideoPositionToTimelineX.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -139,10 +142,6 @@
     <Compile Include="ViewModel\TimelineControlViewModel.cs" />
     <Compile Include="ViewModel\VideoPlayerControlViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -150,10 +149,10 @@
     <Compile Include="Converters\HapticEventToPointsConverter.cs" />
     <Compile Include="Data\HapticEvent.cs" />
     <Compile Include="Data\HapticEventsCollection.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ResourceDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

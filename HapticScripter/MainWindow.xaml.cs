@@ -1,21 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 namespace HapticScripter
 {
     using System.Collections.ObjectModel;
-    using System.ComponentModel;
+    using System.Windows;
+    using System.Windows.Input;
 
     using HapticScripter.Data;
     using HapticScripter.UI;
@@ -25,7 +12,7 @@ namespace HapticScripter
     /// </summary>
     public partial class MainWindow : Window
     {
-        public HeaderVisualHost VisualHost { get { return (HeaderVisualHost)GetValue(HeaderDrawingVisualProperty); } set { SetValue(HeaderDrawingVisualProperty, value); } }
+        public HeaderVisualHost VisualHost { get { return (HeaderVisualHost)this.GetValue(HeaderDrawingVisualProperty); } set { this.SetValue(HeaderDrawingVisualProperty, value); } }
 
         public static readonly DependencyProperty TopVectorData = DependencyProperty.Register("TopVectorData", typeof(ObservableCollection<HapticEvent>), typeof(MainWindow));
         public static readonly DependencyProperty HeaderDrawingVisualProperty = DependencyProperty.Register("HeaderDrawingVisual", typeof(HeaderVisualHost), typeof(MainWindow));
@@ -41,13 +28,13 @@ namespace HapticScripter
             data.Add(new HapticEvent());
 
             KeyBindings.VideoBackwardCommand.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Alt));
-            CommandBindings.Add(new CommandBinding(KeyBindings.VideoBackwardCommand, VideoPlayerControl.BackwardButton_Click));
+            this.CommandBindings.Add(new CommandBinding(KeyBindings.VideoBackwardCommand, this.VideoPlayerControl.BackwardButton_Click));
             
             KeyBindings.VideoPlayCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Alt));
-            CommandBindings.Add(new CommandBinding(KeyBindings.VideoPlayCommand, VideoPlayerControl.PlayButton_Click));
+            this.CommandBindings.Add(new CommandBinding(KeyBindings.VideoPlayCommand, this.VideoPlayerControl.PlayButton_Click));
 
             KeyBindings.VideoForwardCommand.InputGestures.Add(new KeyGesture(Key.D, ModifierKeys.Alt));
-            CommandBindings.Add(new CommandBinding(KeyBindings.VideoForwardCommand, VideoPlayerControl.ForwardButton_Click));
+            this.CommandBindings.Add(new CommandBinding(KeyBindings.VideoForwardCommand, this.VideoPlayerControl.ForwardButton_Click));
 
             this.SetValue(TopVectorData, data);
             this.DataContext = this;

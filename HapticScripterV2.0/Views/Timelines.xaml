@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Converters="clr-namespace:HapticScripterV2._0.Converters" xmlns:ViewModels="clr-namespace:HapticScripterV2._0.ViewModels"
              xmlns:ViewModel="clr-namespace:HapticScripter.ViewModel;assembly=HapticScripter"
-             x:Class="HapticScripterV2._0.Views.Timelines"
+             xmlns:UserControls="clr-namespace:HapticScripterV2._0.Views" x:Class="HapticScripterV2._0.Views.Timelines"
              mc:Ignorable="d" Height="316" Width="531" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <Converters:HapticEventToPointsConverter x:Key="HapticEventToPointsConverter" />
@@ -43,29 +43,29 @@
                 <Slider x:Name="ZoomSlider" Grid.Row="1" Value="1" Minimum="0.01" Maximum="1" Padding="4" Margin="5,0" />
             </Grid>
 
-            <GroupBox Header="Vectors" Grid.RowSpan="5" FontSize="10" Margin="0,37,0,0" BorderThickness="0.7" Foreground="White" />
-            <Label Content="Top" Grid.Row="1" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+            <GroupBox Header="stuff" Grid.RowSpan="5" FontSize="10" Margin="0,37,0,0" BorderThickness="0.7" Foreground="White" />
+            <Label Content="a" Grid.Row="1" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
-            <Label Content="Both" Grid.Row="2" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+            <Label Content="b" Grid.Row="2" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
-            <Label Content="Bottom" Grid.Row="3" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+            <Label Content="c" Grid.Row="3" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
-            <Label Content="Squeeze" Grid.Row="4" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+            <Label Content="d" Grid.Row="4" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
-            <GroupBox Header="Periodic" Grid.Row="5" FontSize="10" Grid.RowSpan="4" BorderThickness="0.7" Foreground="White"/>
-            <Label Content="Top" Grid.Row="5" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+            <GroupBox Header="stuff" Grid.Row="5" FontSize="10" Grid.RowSpan="4" BorderThickness="0.7" Foreground="White"/>
+            <Label Content="e" Grid.Row="5" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom" Margin="0,0,0,9" Foreground="White"/>
-            <Label Content="Both" Grid.Row="6" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+            <Label Content="f" Grid.Row="6" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
-            <Label Content="Bottom" Grid.Row="7" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+            <Label Content="g" Grid.Row="7" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
-            <Label Content="Squeeze" Grid.Row="8" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+            <Label Content="h" Grid.Row="8" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
-            <Label Content="Lube" Grid.Row="9" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+            <Label Content="i" Grid.Row="9" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
-            <Label Content="Heat" Grid.Row="10" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+            <Label Content="j" Grid.Row="10" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
-            <Label Content="Stop" Grid.Row="11" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+            <Label Content="k" Grid.Row="11" FontSize="10" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 				HorizontalContentAlignment="Right" Padding="0,0,5,0" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" Foreground="White"/>
 
             <ScrollViewer Grid.Column="1" Grid.RowSpan="12" Template="{DynamicResource TimeLineScrollViewerTemplate}" 
@@ -105,8 +105,10 @@
 
 
                     <!--Width="{Binding ViewModel:TimelineControlViewModel.HeaderWidth}"-->
-                    <Image x:Name="Header" Width="{Binding ViewModel:TimelineControlViewModel.HeaderWidth}" Grid.Row="0" RenderTransformOrigin="0.0,0.0"  Source="{Binding TimelineViewModel.HeaderImageSource, PresentationTraceSources.TraceLevel=High}" Panel.ZIndex="100">
-                    </Image>
+
+                    <UserControls:HeaderControl  Width="{Binding ViewModel:TimelineControlViewModel.HeaderWidth}" />
+                    <!--<Image x:Name="Header" Width="{Binding ViewModel:TimelineControlViewModel.HeaderWidth}" Grid.Row="0" RenderTransformOrigin="0.0,0.0"  Source="{Binding TimelineViewModel.HeaderImageSource, PresentationTraceSources.TraceLevel=High}" Panel.ZIndex="100">
+                    </Image>-->
 
                     <Grid Grid.Row="1">
                         <ItemsControl x:Name="TopVectorItemControl" Grid.Row="1" ItemsSource="{Binding ViewModels:DataViewModel.TopAxisData}">
@@ -136,7 +138,7 @@
                         <ItemsControl x:Name="BothVectorItemControl" Grid.Row="2">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <ZoomableCanvas Grid.Row="2" Background="#FF3F3F46" x:Name="BothAxis"/>
+                                    <ZoomableCanvas Grid.Row="2" Background="#FF3F3F46" x:Name="BothAxis" Width="5000"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <Button Content="Button" Height="24" Width="75" Click="Button_Click" VerticalAlignment="Bottom" Margin="0,0,0,76"/>

@@ -40,7 +40,7 @@ namespace HapticScripterV2._0.Views
 
             AppViewModel.TimelineViewModel.HeaderWidth = (int)(AppViewModel.DataViewModel.VideoDuration / 2);      
             
-            TimelineFactory.RenderHeaderPicture();
+            //TimelineFactory.RenderHeaderPicture();
 
             //HeaderFactory temp = null;
             //RenderTargetBitmap bmp = new RenderTargetBitmap(size, 30, 96, 96, PixelFormats.Pbgra32);
