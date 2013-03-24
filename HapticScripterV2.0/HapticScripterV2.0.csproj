@@ -64,19 +64,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\SpeedRatioToFormattedString.cs" />
+    <Compile Include="Converters\TimespanToFormattedString.cs" />
+    <Compile Include="Converters\HapticEventFillConverter.cs" />
     <Compile Include="Converters\HapticEventToPointsConverter.cs" />
+    <Compile Include="Converters\VideoPositionToSliderValue.cs" />
     <Compile Include="Factories\ProjectFactory.cs" />
     <Compile Include="Factories\RealTouchFactory.cs" />
     <Compile Include="Factories\TimelineFactory.cs" />
     <Compile Include="Models\HapticEvent.cs" />
     <Compile Include="UIElements\HeaderFactory.cs" />
+    <Compile Include="UIElements\KeyBindings.cs" />
+    <Compile Include="UIElements\TimeRuler.xaml.cs">
+      <DependentUpon>TimeRuler.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\DataViewModel.cs" />
     <Compile Include="ViewModels\TimelineViewModel.cs" />
     <Compile Include="ViewModels\VideoViewModel.cs" />
-    <Compile Include="Views\HeaderControl.xaml.cs">
-      <DependentUpon>HeaderControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
@@ -102,9 +107,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HeaderControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="UIElements\TimeRuler.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Menu.xaml">
       <SubType>Designer</SubType>
@@ -142,12 +147,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HapticScripter\HapticScripter.csproj">
-      <Project>{052CC85A-04AF-4B88-BF9C-BB9CDA45B001}</Project>
-      <Name>HapticScripter</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Backward.png" />

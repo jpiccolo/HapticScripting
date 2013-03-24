@@ -4,9 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModels="clr-namespace:HapticScripterV2._0.ViewModels" 
+             xmlns:Converters="clr-namespace:HapticScripterV2._0.Converters" 
              x:Class="HapticScripterV2._0.Views.Video" 
     x:Name="VideoUserControl"
              mc:Ignorable="d" Height="391" Width="782" Loaded="VideoUserControl_Loaded">
+    <UserControl.Resources>
+        <Converters:SpeedRatioToFormattedString x:Key="SpeedRatioToFormattedString"/>
+        <Converters:VideoPositionToSliderValue x:Key="VideoPositionToSliderValue"/>
+        <Converters:TimespanToFormattedString x:Key="TimespanToFormattedString"/>
+    </UserControl.Resources>
     <UserControl.DataContext>
         <ViewModels:AppViewModel/>
     </UserControl.DataContext>
@@ -24,7 +30,7 @@
         </Grid.RowDefinitions>
 
         <Border Grid.ColumnSpan="3" BorderBrush="#FF686868" BorderThickness="2">
-            <MediaElement x:Name="VideoPlayer" ScrubbingEnabled="True" LoadedBehavior="Manual"/>
+            <MediaElement x:Name="VideoPlayer" ScrubbingEnabled="True" LoadedBehavior="Manual" />
         </Border>
 
         <Border Grid.Row="1" Grid.ColumnSpan="3" BorderBrush="#FF686868" BorderThickness="2,0,2,2" >
@@ -44,7 +50,8 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Content="Speed" Padding="1" Foreground="White" />
-                    <Label Grid.Row="1" x:Name="speedRatioLabel" Padding="1" Content="{Binding VideoViewModel.SpeedRatio}" Foreground="White"/>
+                    <Label Grid.Row="1" x:Name="speedRatioLabel" Padding="1" 
+                           Content="{Binding VideoViewModel.SpeedRatio, Converter={StaticResource SpeedRatioToFormattedString}}" Foreground="White"/>
                 </Grid>
                 <Border Grid.Column="1" Grid.RowSpan="2" BorderBrush="#FF686868" BorderThickness="2,0,0,0" >
                     <Grid>
@@ -53,7 +60,9 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Content="Duration" Padding="1" Foreground="White" />
-                        <Label Grid.Row="1" x:Name="DurationLabel" Padding="1" Content="{Binding VideoViewModel.Duration}" Foreground="White" />
+                        <Label Grid.Row="1" x:Name="DurationLabel" Padding="1" 
+                               Content="{Binding VideoViewModel.Duration, BindsDirectlyToSource=True, Converter={StaticResource TimespanToFormattedString}, Mode=OneWay}" 
+                               Foreground="White" />
                     </Grid>
                 </Border>
                 <Border Grid.Column="2" Grid.RowSpan="2" BorderBrush="#FF686868" BorderThickness="2,0,0,0">
@@ -63,13 +72,19 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Content="Position" Padding="1" Foreground="White" />
-                        <Label Grid.Row="1" x:Name="PositionLabel" Padding="1" Content="{Binding VideoViewModel.Position}" Foreground="White" />
+                        <Label Grid.Row="1" x:Name="PositionLabel" Padding="1" 
+                               Content="{Binding VideoViewModel.Position, BindsDirectlyToSource=True, Converter={StaticResource TimespanToFormattedString}, Mode=OneWay}" 
+                               Foreground="White" 
+                               PresentationTraceSources.TraceLevel="High"/>
                     </Grid>
                 </Border>
             </Grid>
         </Border>
 
-        <Slider Grid.Row="2" Grid.ColumnSpan="3" />
+        <Slider x:Name="VideoSlider" Grid.Row="2" Grid.ColumnSpan="3" LargeChange="0.1" Maximum="1" SmallChange="0.01" 
+                Value="{Binding VideoViewModel.Position, Converter={StaticResource VideoPositionToSliderValue}, Mode=OneWay}" 
+                Thumb.DragStarted ="VideoSlider_DragStarted"
+                Thumb.DragCompleted="VideoSlider_DragCompleted"/>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Grid.ColumnSpan="3" HorizontalAlignment="Center">
             <Button x:Name="BackwardButton" Grid.Column="0" Click="BackwardButton_Click" 

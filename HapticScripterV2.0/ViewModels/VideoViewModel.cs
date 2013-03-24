@@ -16,18 +16,25 @@ namespace HapticScripterV2._0.ViewModels
             set { this.SetField(ref this.speedRatio, value, "SpeedRatio"); }
         }
 
-        private TimeSpan duration;
+        private TimeSpan duration = new TimeSpan(0,0,0);
         public TimeSpan Duration
         {
             get { return this.duration; }
-            set { this.SetField(ref this.duration, value, "Duration"); }
+            set
+            {
+                this.SetField(ref this.duration, value, "Duration");
+                AppViewModel.TimelineViewModel.ProcessTimelineRuler();
+            }
         }
         
-        private TimeSpan position;
+        private TimeSpan position = new TimeSpan(0,0,0);
         public TimeSpan Position
         {
             get { return this.position; }
-            set { this.SetField(ref this.position, value, "Position"); }   
+            set
+            {
+                this.SetField(ref this.position, value, "Position");
+            }   
         }
 
 

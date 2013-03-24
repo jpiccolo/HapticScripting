@@ -28,7 +28,7 @@ namespace HapticScripter
             data.Add(new HapticEvent());
 
             KeyBindings.VideoBackwardCommand.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Alt));
-            this.CommandBindings.Add(new CommandBinding(KeyBindings.VideoBackwardCommand, this.VideoPlayerControl.BackwardButton_Click));
+            this.CommandBindings.Add(new CommandBinding(KeyBindings.VideoBackwardCommand, this.vi.BackwardButton_Click));
             
             KeyBindings.VideoPlayCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Alt));
             this.CommandBindings.Add(new CommandBinding(KeyBindings.VideoPlayCommand, this.VideoPlayerControl.PlayButton_Click));

@@ -1,244 +1,368 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace HapticScripterV2._0.Views
+﻿namespace HapticScripterV2._0.Views
 {
-    using System.Drawing;
-    using System.IO;
-    using System.Runtime.InteropServices;
-    using System.Threading.Tasks;
-    using System.Windows.Interop;
+    #region
 
-    using HapticScripterV2._0.Factories;
-    using HapticScripterV2._0.UIElements;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Controls;
+
+    using HapticScripterV2._0.Models;
     using HapticScripterV2._0.ViewModels;
 
+    #endregion
+
     /// <summary>
-    /// Interaction logic for Timelines.xaml
+    ///   Interaction logic for Timelines.xaml
     /// </summary>
     public partial class Timelines : UserControl
     {
-        public Timelines()
+        #region Constructors and Destructors
+
+        public Timelines() { InitializeComponent(); }
+
+        #endregion
+
+        #region Methods
+
+        private void TimelineScroller_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            AppViewModel.DataViewModel.VideoDuration = new TimeSpan(0, 1, 20).TotalMilliseconds; //AppViewModel.VideoViewModel.Duration.TotalMilliseconds;
-
-            AppViewModel.TimelineViewModel.HeaderWidth = (int)(AppViewModel.DataViewModel.VideoDuration / 2);      
-            
-            //TimelineFactory.RenderHeaderPicture();
-
-            //HeaderFactory temp = null;
-            //RenderTargetBitmap bmp = new RenderTargetBitmap(size, 30, 96, 96, PixelFormats.Pbgra32);
-
-
-
-            //temp = new HeaderFactory(0, size, TimelineViewModel.ViewLevel.Level1);
-            //bmp.Render(temp.MyVisual);
-            //bmp.Freeze();
-
-
-            //PngBitmapEncoder pngBitmapEncoder = new PngBitmapEncoder();
-            //pngBitmapEncoder.Frames.Add(BitmapFrame.Create(bmp));
-
-
-
-
-
-
-            //BitmapFrame bitmapFrame = BitmapFrame.Create(bmp);
-
-
-
-
-
-
-            //using (FileStream fileStream = new FileStream("some.png", FileMode.Create))
-            //{
-            //    pngBitmapEncoder.Save(fileStream);
-            //    fileStream.Flush();
-            //    fileStream.Close();
-            //}
-            //var uri = new Uri(@"C:\some.png");
-
-            ////AppViewModel.TimelineViewModel.HeaderImageSource = logo;
-
-
-
-
-            ////saving png together
-            //// Loads the images to tile (no need to specify PngBitmapDecoder, the correct decoder is automatically selected)
-            //BitmapFrame frame1 = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad).Frames.First();
-            //BitmapFrame frame2 = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad).Frames.First();
-            //BitmapFrame frame3 = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad).Frames.First();
-            //BitmapFrame frame4 = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad).Frames.First();
-
-            ////// Gets the size of the images (I assume each image has the same size)
-            //int imageWidth = frame1.PixelWidth;
-            //int imageHeight = frame1.PixelHeight;
-
-            ////// Draws the images into a DrawingVisual component
-            //DrawingVisual drawingVisual = new DrawingVisual();
-            //using (DrawingContext drawingContext = drawingVisual.RenderOpen())
-            //{
-            //    drawingContext.DrawImage(frame1, new Rect(0, 0, imageWidth, imageHeight));
-            //    drawingContext.DrawImage(frame2, new Rect(imageWidth, 0, imageWidth, imageHeight));
-            //    drawingContext.DrawImage(frame3, new Rect(imageWidth * 2, 0, imageWidth, imageHeight));
-            //    drawingContext.DrawImage(frame4, new Rect(imageWidth * 3, 0, imageWidth, imageHeight));
-            //}
-
-            ////// Converts the Visual (DrawingVisual) into a BitmapSource
-            //RenderTargetBitmap bmp = new RenderTargetBitmap(imageWidth * 4, imageHeight, 96, 96, PixelFormats.Pbgra32);
-            //bmp.Render(drawingVisual);
-
-            ////// Creates a PngBitmapEncoder and adds the BitmapSource to the frames of the encoder
-            ////PngBitmapEncoder encoder = new PngBitmapEncoder();
-            ////encoder.Frames.Add(BitmapFrame.Create(bmp));
-
-            ////// Saves the image into a file using the encoder
-            ////using (Stream stream = File.Create("newest.png"))
-            ////    encoder.Save(stream);
-
-
-
-
-            //AppViewModel.TimelineViewModel.HeaderImageSource = bmp;
-
-
-
-            //var bitmapSource = ConvertToBitmap(bmp);
-
-            //RenderTargetBitmap bmp1 = new RenderTargetBitmap(size, 30, 96, 96, PixelFormats.Pbgra32);
-            //temp = new HeaderFactory(100055, 200055, TimelineViewModel.ViewLevel.Level1);
-            //bmp1.Render(temp.MyVisual);
-            //bmp1.Freeze();
-
-            //var bitmapSource1 = ConvertToBitmap(bmp1);
-
-
-            //var blah = Combine(new[] { bitmapSource });
-
-            //AppViewModel.TimelineViewModel.HeaderImageSource = bitmapSource.ToImageSource();
-        }
-
-
-
-
-        private System.Drawing.Bitmap ConvertToBitmap(BitmapSource target)
-        {
-            System.Drawing.Bitmap bitmap;
-
-            using (MemoryStream outStream = new MemoryStream())
+            if (AppViewModel.DataViewModel.TopAxisData != null)
             {
-                BitmapEncoder enc = new BmpBitmapEncoder();
-                enc.Frames.Add(BitmapFrame.Create(target));
-                enc.Save(outStream);
-                bitmap = new System.Drawing.Bitmap(outStream);
+                AppViewModel.DataViewModel.TopAxisData.Invalidate();
             }
 
-            return bitmap;
-        }
-
-        public static System.Drawing.Bitmap Combine(Bitmap[] files)
-        {
-            //read all images into memory
-            List<System.Drawing.Bitmap> images = new List<System.Drawing.Bitmap>();
-            System.Drawing.Bitmap finalImage = null;
-
-            try
+            if (AppViewModel.DataViewModel.BothAxisData != null)
             {
-                int width = 0;
-                int height = 0;
-
-                foreach (Bitmap image in files)
-                {
-                    //create a Bitmap from the file and add it to the list
-                    //update the size of the final bitmap
-                    width += image.Width;
-                    height = image.Height > height ? image.Height : height;
-
-                    images.Add(image);
-                }
-
-                //create a bitmap to hold the combined image
-                finalImage = new System.Drawing.Bitmap(width, height);
-
-                //get a graphics object from the image so we can draw on it
-                using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(finalImage))
-                {
-                    //set background color
-                    g.Clear(System.Drawing.Color.Black);
-
-                    //go through each image and draw it on the final image
-                    int offset = 0;
-                    foreach (System.Drawing.Bitmap image in images)
-                    {
-                        g.DrawImage(image,
-                          new System.Drawing.Rectangle(offset, 0, image.Width, image.Height));
-                        offset += image.Width;
-                    }
-                }
-
-                return finalImage;
+                AppViewModel.DataViewModel.BothAxisData.Invalidate();
             }
-            catch (Exception ex)
-            {
-                if (finalImage != null)
-                    finalImage.Dispose();
 
-                throw ex;
-            }
-            finally
+            if (AppViewModel.DataViewModel.BottomAxisData != null)
             {
-                //clean up memory
-                foreach (System.Drawing.Bitmap image in images)
-                {
-                    image.Dispose();
-                }
+                AppViewModel.DataViewModel.BottomAxisData.Invalidate();
+            }
+
+            if (AppViewModel.DataViewModel.SqueezeAxisData != null)
+            {
+                AppViewModel.DataViewModel.SqueezeAxisData.Invalidate();
+            }
+
+            if (AppViewModel.DataViewModel.TopPeriodicData != null)
+            {
+                AppViewModel.DataViewModel.TopPeriodicData.Invalidate();
+            }
+
+            if (AppViewModel.DataViewModel.BothPeriodicData != null)
+            {
+                AppViewModel.DataViewModel.BothPeriodicData.Invalidate();
+            }
+
+            if (AppViewModel.DataViewModel.BottomPeriodicData != null)
+            {
+                AppViewModel.DataViewModel.BottomPeriodicData.Invalidate();
+            }
+
+            if (AppViewModel.DataViewModel.SqueezePeriodicData != null)
+            {
+                AppViewModel.DataViewModel.SqueezePeriodicData.Invalidate();
+            }
+
+            if (AppViewModel.DataViewModel.LubeAxisData != null)
+            {
+                AppViewModel.DataViewModel.LubeAxisData.Invalidate();
+            }
+
+            if (AppViewModel.DataViewModel.HeatAxisData != null)
+            {
+                AppViewModel.DataViewModel.HeatAxisData.Invalidate();
+            }
+
+            if (AppViewModel.DataViewModel.StopAxisData != null)
+            {
+                AppViewModel.DataViewModel.StopAxisData.Invalidate();
             }
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             AppViewModel.TimelineViewModel.TimelineScroller = TimelineScroller;
+
+            int count = 5000;
+            Task.Factory.StartNew(
+                () =>
+                    {
+                        var temp = new HapticCollection();
+                        for (int i = 0; i < count; i++)
+                        {
+                            var evt = new HapticEvent
+                                          {
+                                              Direction = HapticEvent.DirectionType.In,
+                                              Duration = 100,
+                                              InDuration = 25,
+                                              InMagnitude = 100,
+                                              Magnitude = 200,
+                                              OutDuration = 25,
+                                              OutMagnitude = 100,
+                                              Period = 5,
+                                              Start = 100 + (100 * i),
+                                              StopType = HapticEvent.TypeOfStop.All
+                                          };
+
+                            temp.Add(evt);
+                        }
+                        AppViewModel.DataViewModel.TopAxisData = temp;
+                    });
+
+            Task.Factory.StartNew(
+                () =>
+                    {
+                        var temp = new HapticCollection();
+                        for (int i = 0; i < count; i++)
+                        {
+                            var evt = new HapticEvent
+                                          {
+                                              Direction = HapticEvent.DirectionType.In,
+                                              Duration = 100,
+                                              InDuration = 25,
+                                              InMagnitude = 100,
+                                              Magnitude = 200,
+                                              OutDuration = 25,
+                                              OutMagnitude = 100,
+                                              Period = 5,
+                                              Start = 100 + (100 * i),
+                                              StopType = HapticEvent.TypeOfStop.All
+                                          };
+
+                            temp.Add(evt);
+                        }
+                        AppViewModel.DataViewModel.BothAxisData = temp;
+                    });
+
+            Task.Factory.StartNew(
+                () =>
+                    {
+                        var temp = new HapticCollection();
+                        for (int i = 0; i < count; i++)
+                        {
+                            var evt = new HapticEvent
+                                          {
+                                              Direction = HapticEvent.DirectionType.In,
+                                              Duration = 100,
+                                              InDuration = 25,
+                                              InMagnitude = 100,
+                                              Magnitude = 200,
+                                              OutDuration = 25,
+                                              OutMagnitude = 100,
+                                              Period = 5,
+                                              Start = 100 + (100 * i),
+                                              StopType = HapticEvent.TypeOfStop.All
+                                          };
+
+                            temp.Add(evt);
+                        }
+                        AppViewModel.DataViewModel.BottomAxisData = temp;
+                    });
+
+            Task.Factory.StartNew(
+                () =>
+                    {
+                        var temp = new HapticCollection();
+                        for (int i = 0; i < count; i++)
+                        {
+                            var evt = new HapticEvent
+                                          {
+                                              Direction = HapticEvent.DirectionType.In,
+                                              Duration = 100,
+                                              InDuration = 25,
+                                              InMagnitude = 100,
+                                              Magnitude = 200,
+                                              OutDuration = 25,
+                                              OutMagnitude = 100,
+                                              Period = 5,
+                                              Start = 100 + (100 * i),
+                                              StopType = HapticEvent.TypeOfStop.All
+                                          };
+
+                            temp.Add(evt);
+                        }
+                        AppViewModel.DataViewModel.SqueezeAxisData = temp;
+                    });
+
+            Task.Factory.StartNew(
+                () =>
+                    {
+                        var temp = new HapticCollection();
+                        for (int i = 0; i < count; i++)
+                        {
+                            var evt = new HapticEvent
+                                          {
+                                              Direction = HapticEvent.DirectionType.In,
+                                              Duration = 100,
+                                              InDuration = 25,
+                                              InMagnitude = 100,
+                                              Magnitude = 200,
+                                              OutDuration = 25,
+                                              OutMagnitude = 100,
+                                              Period = 5,
+                                              Start = 100 + (100 * i),
+                                              StopType = HapticEvent.TypeOfStop.All
+                                          };
+
+                            temp.Add(evt);
+                        }
+                        AppViewModel.DataViewModel.TopPeriodicData = temp;
+                    });
+
+            Task.Factory.StartNew(
+                () =>
+                    {
+                        var temp = new HapticCollection();
+                        for (int i = 0; i < count; i++)
+                        {
+                            var evt = new HapticEvent
+                                          {
+                                              Direction = HapticEvent.DirectionType.In,
+                                              Duration = 100,
+                                              InDuration = 25,
+                                              InMagnitude = 100,
+                                              Magnitude = 200,
+                                              OutDuration = 25,
+                                              OutMagnitude = 100,
+                                              Period = 5,
+                                              Start = 100 + (100 * i),
+                                              StopType = HapticEvent.TypeOfStop.All
+                                          };
+
+                            temp.Add(evt);
+                        }
+                        AppViewModel.DataViewModel.BothPeriodicData = temp;
+                    });
+
+            Task.Factory.StartNew(
+                () =>
+                    {
+                        var temp = new HapticCollection();
+                        for (int i = 0; i < count; i++)
+                        {
+                            var evt = new HapticEvent
+                                          {
+                                              Direction = HapticEvent.DirectionType.In,
+                                              Duration = 100,
+                                              InDuration = 25,
+                                              InMagnitude = 100,
+                                              Magnitude = 200,
+                                              OutDuration = 25,
+                                              OutMagnitude = 100,
+                                              Period = 5,
+                                              Start = 100 + (100 * i),
+                                              StopType = HapticEvent.TypeOfStop.All
+                                          };
+
+                            temp.Add(evt);
+                        }
+                        AppViewModel.DataViewModel.BottomPeriodicData = temp;
+                    });
+
+            Task.Factory.StartNew(
+                () =>
+                    {
+                        var temp = new HapticCollection();
+                        for (int i = 0; i < count; i++)
+                        {
+                            var evt = new HapticEvent
+                                          {
+                                              Direction = HapticEvent.DirectionType.In,
+                                              Duration = 100,
+                                              InDuration = 25,
+                                              InMagnitude = 100,
+                                              Magnitude = 200,
+                                              OutDuration = 25,
+                                              OutMagnitude = 100,
+                                              Period = 5,
+                                              Start = 100 + (100 * i),
+                                              StopType = HapticEvent.TypeOfStop.All
+                                          };
+
+                            temp.Add(evt);
+                        }
+                        AppViewModel.DataViewModel.SqueezePeriodicData = temp;
+                    });
+
+            Task.Factory.StartNew(
+                () =>
+                    {
+                        var temp = new HapticCollection();
+                        for (int i = 0; i < count; i++)
+                        {
+                            var evt = new HapticEvent
+                                          {
+                                              Direction = HapticEvent.DirectionType.In,
+                                              Duration = 100,
+                                              InDuration = 25,
+                                              InMagnitude = 100,
+                                              Magnitude = 200,
+                                              OutDuration = 25,
+                                              OutMagnitude = 100,
+                                              Period = 5,
+                                              Start = 100 + (100 * i),
+                                              StopType = HapticEvent.TypeOfStop.All
+                                          };
+
+                            temp.Add(evt);
+                        }
+                        AppViewModel.DataViewModel.LubeAxisData = temp;
+                    });
+
+            Task.Factory.StartNew(
+                () =>
+                    {
+                        var temp = new HapticCollection();
+                        for (int i = 0; i < count; i++)
+                        {
+                            var evt = new HapticEvent
+                                          {
+                                              Direction = HapticEvent.DirectionType.In,
+                                              Duration = 100,
+                                              InDuration = 25,
+                                              InMagnitude = 100,
+                                              Magnitude = 200,
+                                              OutDuration = 25,
+                                              OutMagnitude = 100,
+                                              Period = 5,
+                                              Start = 100 + (100 * i),
+                                              StopType = HapticEvent.TypeOfStop.All
+                                          };
+
+                            temp.Add(evt);
+                        }
+                        AppViewModel.DataViewModel.HeatAxisData = temp;
+                    });
+
+            Task.Factory.StartNew(
+                () =>
+                    {
+                        var temp = new HapticCollection();
+                        for (int i = 0; i < count; i++)
+                        {
+                            var evt = new HapticEvent
+                                          {
+                                              Direction = HapticEvent.DirectionType.In,
+                                              Duration = 100,
+                                              InDuration = 25,
+                                              InMagnitude = 100,
+                                              Magnitude = 200,
+                                              OutDuration = 25,
+                                              OutMagnitude = 100,
+                                              Period = 5,
+                                              Start = 100 + (100 * i),
+                                              StopType = HapticEvent.TypeOfStop.All
+                                          };
+
+                            temp.Add(evt);
+                        }
+                        AppViewModel.DataViewModel.StopAxisData = temp;
+                    });
         }
-    }
 
-    public static class BitmapExtensions
-    {
-        public static ImageSource ToImageSource(this Bitmap bitmap)
-        {
-            var hbitmap = bitmap.GetHbitmap();
-            try
-            {
-                var imageSource = Imaging.CreateBitmapSourceFromHBitmap(hbitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight(bitmap.Width, bitmap.Height));
-
-                return imageSource;
-            }
-            finally
-            {
-                NativeMethods.DeleteObject(hbitmap);
-            }
-        }
-    }
-
-    public static class NativeMethods
-    {
-        [DllImport("gdi32")]
-        public static extern int DeleteObject(IntPtr hObject);
+        #endregion
     }
 }

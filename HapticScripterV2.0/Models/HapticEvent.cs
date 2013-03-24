@@ -7,8 +7,6 @@ namespace HapticScripterV2._0.Models
 {
     using System.ComponentModel;
 
-    using HapticScripter;
-
     public class HapticEvent : INotifyPropertyChanged
     {
         private int start;
@@ -23,8 +21,8 @@ namespace HapticScripterV2._0.Models
         private int inMagnitude;
         private TypeOfStop stopType;
         public int Start { get { return this.start; } set { this.SetField(ref this.start, value, "Start"); } }
-        public int Duration { get { return this.duration; } set { this.SetField(ref this.start, value, "Duration"); } }
-        public int Magnitude { get { return this.magnitude; } set { this.SetField(ref this.start, value, "Magnitude"); } }
+        public int Duration { get { return this.duration; } set { this.SetField(ref this.duration, value, "Duration"); } }
+        public int Magnitude { get { return this.magnitude; } set { this.SetField(ref this.magnitude, value, "Magnitude"); } }
         
         public DirectionType Direction { get { return this.direction; } set { this.SetField(ref this.direction, value, "Direction"); } }
 
@@ -94,21 +92,21 @@ namespace HapticScripterV2._0.Models
 
 
 
-        void blah()
-        {
-            using (var context = new RealTouchDatabaseEntities())
-            {
-                //var stdQuery = (from d in context.Classes
-                //                select new { Class = d.ClassName, Teacher = d.ClassTeacher });
+        //void blah()
+        //{
+        //    using (var context = new RealTouchDatabaseEntities())
+        //    {
+        //        //var stdQuery = (from d in context.Classes
+        //        //                select new { Class = d.ClassName, Teacher = d.ClassTeacher });
 
-                //foreach (var q in stdQuery)
-                //{
-                //    Console.WriteLine("Class Name : " + q.Class + ", Class Teacher Name : " + q.Teacher);
-                //}
+        //        //foreach (var q in stdQuery)
+        //        //{
+        //        //    Console.WriteLine("Class Name : " + q.Class + ", Class Teacher Name : " + q.Teacher);
+        //        //}
 
-                Console.ReadKey();
-            }
-        }
+        //        Console.ReadKey();
+        //    }
+        //}
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

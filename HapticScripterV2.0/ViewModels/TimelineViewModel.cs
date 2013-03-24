@@ -5,26 +5,55 @@ using System.Text;
 
 namespace HapticScripterV2._0.ViewModels
 {
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Windows.Controls;
     using System.Windows.Media;
 
+    using HapticScripterV2._0.UIElements;
+
     public class TimelineViewModel : INotifyPropertyChanged
     {
-        public ScrollViewer TimelineScroller;
-
-        private int headerWidth;
-        public int HeaderWidth
+        public TimelineViewModel()
         {
-            get { return this.headerWidth; }
-            set { this.SetField(ref this.headerWidth, value, "HeaderWidth"); }
+            secondsList = new ObservableCollection<SecondsLine>();
+            secondsList.Add(new SecondsLine("", 485));
+            for (int i = 1; i < 10; i++)
+            {
+                TimeSpan t = new TimeSpan(0, 0, i);
+                string s = t.ToString();
+
+                secondsList.Add(new SecondsLine(s, 500));
+            }
         }
 
-        private ImageSource headerImageSource;
-        public ImageSource HeaderImageSource
+
+        public ScrollViewer TimelineScroller;
+
+        private ObservableCollection<SecondsLine> secondsList;
+        public ObservableCollection<SecondsLine> SecondsList
         {
-            get { return this.headerImageSource; }
-            set { this.SetField(ref this.headerImageSource, value, "HeaderImageSource"); }
+            get { return this.secondsList; }
+            set { this.SetField(ref this.secondsList, value, "SecondsList"); }
+        }
+
+        public void ProcessTimelineRuler()
+        {
+            var sl = new ObservableCollection<SecondsLine>();
+
+            sl.Add(new SecondsLine("", 485));
+
+            for (int i = 1; i < AppViewModel.VideoViewModel.Duration.TotalSeconds; i++)
+            {
+                TimeSpan t = new TimeSpan(0, 0, i);
+                string s = t.ToString();
+
+                sl.Add(new SecondsLine(s, 500));
+            }
+
+            sl.Add(new SecondsLine("", (int)((AppViewModel.VideoViewModel.Duration.TotalMilliseconds) - (AppViewModel.VideoViewModel.Duration.TotalSeconds * 1000))));
+
+            SecondsList = sl;
         }
 
         public enum ViewLevel
@@ -62,6 +91,21 @@ namespace HapticScripterV2._0.ViewModels
             field = value;
             this.OnPropertyChanged(propertyName);
             return true;
+        }
+    }
+
+    public class SecondsLine
+    {
+        public int Id { get; set; }
+
+        public string Label { get; set; }
+
+        public int Left { get; set; }
+
+        public SecondsLine(string label, int left)
+        {
+            this.Left = left;
+            this.Label = label;
         }
     }
 }

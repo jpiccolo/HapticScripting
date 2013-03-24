@@ -7,6 +7,8 @@
     using System.ComponentModel;
     using System.IO;
     using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Controls;
 
     using HapticScripterV2._0.Factories;
     using HapticScripterV2._0.Models;
@@ -20,17 +22,17 @@
     {
         #region Fields
 
-        private BindingList<HapticEvent> bothAxisData;
-        private BindingList<HapticEvent> bothPeriodicData;
-        private BindingList<HapticEvent> bottomAxisData;
-        private BindingList<HapticEvent> bottomPeriodicData;
-        private BindingList<HapticEvent> heatAxisData;
-        private BindingList<HapticEvent> lubeAxisData;
-        private BindingList<HapticEvent> squeezeAxisData;
-        private BindingList<HapticEvent> squeezePeriodicData;
-        private BindingList<HapticEvent> stopAxisData;
-        private BindingList<HapticEvent> topAxisData;
-        private BindingList<HapticEvent> topPeriodicData;
+        private HapticCollection bothAxisData;
+        private HapticCollection bothPeriodicData;
+        private HapticCollection bottomAxisData;
+        private HapticCollection bottomPeriodicData;
+        private HapticCollection heatAxisData;
+        private HapticCollection lubeAxisData;
+        private HapticCollection squeezeAxisData;
+        private HapticCollection squeezePeriodicData;
+        private HapticCollection stopAxisData;
+        private HapticCollection topAxisData;
+        private HapticCollection  topPeriodicData;
 
         #endregion
 
@@ -42,19 +44,35 @@
 
         #region Public Properties
 
-        public BindingList<HapticEvent> TopAxisData { get { return this.topAxisData; } set { this.SetField(ref this.topAxisData, value, "TopAxisData"); } }
-        public BindingList<HapticEvent> BothAxisData { get { return this.bothAxisData; } set { this.SetField(ref this.bothAxisData, value, "BothAxisData"); } }
-        public BindingList<HapticEvent> BottomAxisData { get { return this.bottomAxisData; } set { this.SetField(ref this.bottomAxisData, value, "BottomAxisData"); } }
-        public BindingList<HapticEvent> SqueezeAxisData { get { return this.squeezeAxisData; } set { this.SetField(ref this.squeezeAxisData, value, "SqueezeAxisData"); } }
+        public HapticCollection TopAxisData { 
+            get
+            {
+                return this.topAxisData;
+            } 
+            set
+            {
+                this.SetField(ref this.topAxisData, value, "TopAxisData");
+                this.topAxisData.Invalidate();
+            } }
 
-        public BindingList<HapticEvent> TopPeriodicData { get { return this.topPeriodicData; } set { this.SetField(ref this.topPeriodicData, value, "TopPeriodicData"); } }
-        public BindingList<HapticEvent> BothPeriodicData { get { return this.bothPeriodicData; } set { this.SetField(ref this.bothPeriodicData, value, "BothPeriodicData"); } }
-        public BindingList<HapticEvent> BottomPeriodicData { get { return this.bottomPeriodicData; } set { this.SetField(ref this.bottomPeriodicData, value, "BottomPeriodicData"); } }
-        public BindingList<HapticEvent> SqueezePeriodicData { get { return this.squeezePeriodicData; } set { this.SetField(ref this.squeezePeriodicData, value, "SqueezePeriodicData"); } }
+        public HapticCollection BothAxisData { 
+            get { return this.bothAxisData; } 
+            set
+            {
+                this.SetField(ref this.bothAxisData, value, "BothAxisData");
+                this.bothAxisData.Invalidate();
+            } }
+        public HapticCollection BottomAxisData { get { return this.bottomAxisData; } set { this.SetField(ref this.bottomAxisData, value, "BottomAxisData"); } }
+        public HapticCollection SqueezeAxisData { get { return this.squeezeAxisData; } set { this.SetField(ref this.squeezeAxisData, value, "SqueezeAxisData"); } }
 
-        public BindingList<HapticEvent> HeatAxisData { get { return this.heatAxisData; } set { this.SetField(ref this.heatAxisData, value, "HeatAxisData"); } }
-        public BindingList<HapticEvent> LubeAxisData { get { return this.lubeAxisData; } set { this.SetField(ref this.lubeAxisData, value, "LubeAxisData"); } }
-        public BindingList<HapticEvent> StopAxisData { get { return this.stopAxisData; } set { this.SetField(ref this.stopAxisData, value, "StopAxisData"); } }
+        public HapticCollection TopPeriodicData { get { return this.topPeriodicData; } set { this.SetField(ref this.topPeriodicData, value, "TopPeriodicData"); } }
+        public HapticCollection BothPeriodicData { get { return this.bothPeriodicData; } set { this.SetField(ref this.bothPeriodicData, value, "BothPeriodicData"); } }
+        public HapticCollection BottomPeriodicData { get { return this.bottomPeriodicData; } set { this.SetField(ref this.bottomPeriodicData, value, "BottomPeriodicData"); } }
+        public HapticCollection SqueezePeriodicData { get { return this.squeezePeriodicData; } set { this.SetField(ref this.squeezePeriodicData, value, "SqueezePeriodicData"); } }
+
+        public HapticCollection HeatAxisData { get { return this.heatAxisData; } set { this.SetField(ref this.heatAxisData, value, "HeatAxisData"); } }
+        public HapticCollection LubeAxisData { get { return this.lubeAxisData; } set { this.SetField(ref this.lubeAxisData, value, "LubeAxisData"); } }
+        public HapticCollection StopAxisData { get { return this.stopAxisData; } set { this.SetField(ref this.stopAxisData, value, "StopAxisData"); } }
 
         private string projectFilePath;
         private string scriptFilePath;
@@ -116,5 +134,56 @@
         {
             throw new NotImplementedException();
         }
+    }
+
+    public class HapticCollection : BindingList<HapticEvent>, ZoomableCanvas.ISpatialItemsSource
+    {
+        #region Implementation of ISpatialItemsSource
+
+        public IEnumerable<int> Query(Rect rectangle)
+        {
+            rectangle.Intersect(Extent);
+
+            for (int i = 0; i < this.Items.Count; i++)
+            {
+                double start = (this.Items[i].Start / 2.0);
+
+                if (start >= Math.Max(0, (rectangle.X-400)) && start <= (rectangle.X + rectangle.Width))
+                {
+                    yield return (i);
+                }
+            }
+        }
+
+        public Rect Extent
+        {
+            get
+            {
+                return new Rect(
+                    AppViewModel.TimelineViewModel.TimelineScroller.HorizontalOffset, 
+                    0, 
+                    AppViewModel.TimelineViewModel.TimelineScroller.ViewportWidth, 
+                    AppViewModel.TimelineViewModel.TimelineScroller.ViewportHeight);
+            }
+        }
+
+        public event EventHandler ExtentChanged;
+        public event EventHandler QueryInvalidated;
+
+        #endregion
+
+        internal void Invalidate()
+        {
+            if (ExtentChanged != null)
+            {
+                ExtentChanged(this, EventArgs.Empty);
+            }
+            if (QueryInvalidated != null)
+            {
+                QueryInvalidated(this, EventArgs.Empty);
+            }
+    }
+
+        public void InvalidateExtent() { ExtentChanged(this, EventArgs.Empty); }
     }
 }
