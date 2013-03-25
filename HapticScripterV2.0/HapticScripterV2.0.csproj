@@ -41,9 +41,11 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>3rd Party\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Classic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +57,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsMediaLib">
+      <HintPath>3rd Party\WindowsMediaLib.dll</HintPath>
+    </Reference>
     <Reference Include="ZoomableCanvas">
       <HintPath>3rd Party\ZoomableCanvas.dll</HintPath>
     </Reference>
@@ -72,7 +77,11 @@
     <Compile Include="Factories\ProjectFactory.cs" />
     <Compile Include="Factories\RealTouchFactory.cs" />
     <Compile Include="Factories\TimelineFactory.cs" />
+    <Compile Include="Media\ScriptInfo.cs" />
+    <Compile Include="Media\WMFSDKFunctions.cs" />
+    <Compile Include="Media\WMReaderCallback.cs" />
     <Compile Include="Models\HapticEvent.cs" />
+    <Compile Include="UIElements\DragCanvas.cs" />
     <Compile Include="UIElements\HeaderFactory.cs" />
     <Compile Include="UIElements\KeyBindings.cs" />
     <Compile Include="UIElements\TimeRuler.xaml.cs">
@@ -82,6 +91,9 @@
     <Compile Include="ViewModels\DataViewModel.cs" />
     <Compile Include="ViewModels\TimelineViewModel.cs" />
     <Compile Include="ViewModels\VideoViewModel.cs" />
+    <Compile Include="Views\PenisDragCanvasControl.xaml.cs">
+      <DependentUpon>PenisDragCanvasControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
@@ -108,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIElements\TimeRuler.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PenisDragCanvasControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -149,15 +165,35 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Backward.png" />
+    <Resource Include="Resources\Backward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Forward.png" />
+    <Resource Include="Resources\Forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\PlayPause.png" />
+    <Resource Include="Resources\PlayPause.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\vaginaTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\vaginaBottom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\penis.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

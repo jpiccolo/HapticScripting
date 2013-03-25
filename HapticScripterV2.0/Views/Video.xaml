@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModels="clr-namespace:HapticScripterV2._0.ViewModels" 
-             xmlns:Converters="clr-namespace:HapticScripterV2._0.Converters" 
-             x:Class="HapticScripterV2._0.Views.Video" 
+             xmlns:Converters="clr-namespace:HapticScripterV2._0.Converters"
+             xmlns:Views="clr-namespace:HapticScripterV2._0.Views" x:Class="HapticScripterV2._0.Views.Video" 
     x:Name="VideoUserControl"
              mc:Ignorable="d" Height="391" Width="782" Loaded="VideoUserControl_Loaded">
     <UserControl.Resources>
@@ -29,10 +29,12 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.ColumnSpan="3" BorderBrush="#FF686868" BorderThickness="2">
+        <Border Grid.ColumnSpan="3" BorderBrush="#FF686868" BorderThickness="2" Background="Black">
             <MediaElement x:Name="VideoPlayer" ScrubbingEnabled="True" LoadedBehavior="Manual" />
         </Border>
-
+        
+        <Views:PenisDragCanvasControl Grid.ColumnSpan="3" Panel.ZIndex="1000" />
+        
         <Border Grid.Row="1" Grid.ColumnSpan="3" BorderBrush="#FF686868" BorderThickness="2,0,2,2" >
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -104,6 +106,7 @@
                 <Image Source="/HapticScripterV2.0;component/Resources/Forward.png" Stretch="None" ToolTip="Alt+d"/>
             </Button>
         </StackPanel>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="42,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
 
 
     </Grid>

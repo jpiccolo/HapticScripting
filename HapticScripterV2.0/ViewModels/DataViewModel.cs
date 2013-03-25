@@ -9,6 +9,7 @@
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Threading;
 
     using HapticScripterV2._0.Factories;
     using HapticScripterV2._0.Models;
@@ -62,6 +63,7 @@
                 this.SetField(ref this.bothAxisData, value, "BothAxisData");
                 this.bothAxisData.Invalidate();
             } }
+
         public HapticCollection BottomAxisData { get { return this.bottomAxisData; } set { this.SetField(ref this.bottomAxisData, value, "BottomAxisData"); } }
         public HapticCollection SqueezeAxisData { get { return this.squeezeAxisData; } set { this.SetField(ref this.squeezeAxisData, value, "SqueezeAxisData"); } }
 
@@ -148,7 +150,7 @@
             {
                 double start = (this.Items[i].Start / 2.0);
 
-                if (start >= Math.Max(0, (rectangle.X-400)) && start <= (rectangle.X + rectangle.Width))
+                if (start >= Math.Max(0, (rectangle.X-2000)) && start <= (rectangle.X + rectangle.Width))
                 {
                     yield return (i);
                 }
@@ -170,6 +172,12 @@
         public event EventHandler ExtentChanged;
         public event EventHandler QueryInvalidated;
 
+        public void AddNewEvent(HapticEvent evt)
+        {
+            Application.Current.Dispatcher.Invoke(
+                (Action)(() => this.Add(evt)),
+                DispatcherPriority.Render);
+        }
         #endregion
 
         internal void Invalidate()

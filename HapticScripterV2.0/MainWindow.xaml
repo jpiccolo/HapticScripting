@@ -5,11 +5,28 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="243*"/>
-            <RowDefinition Height="285*"/>
+            <RowDefinition Height="231*"/>
+            <RowDefinition Height="284*"/>
         </Grid.RowDefinitions>
+
+        <!--<GridSplitter  ResizeDirection="Rows" 
+            Grid.Column="0"
+            Width="Auto"
+            Grid.Row="1"
+            Height="3"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Bottom" />-->
+
+        <GridSplitter
+            ResizeDirection="Rows" 
+            Grid.Row="1"
+            Width="Auto"
+            Height="1"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Bottom" Background="#FFF92D0C" BorderBrush="#FFFB0FD0" Foreground="#FF061CF7" />
+
         <UserControls:Menu x:Name="MenuControl" Height="Auto" Width="Auto" Grid.Row="0" />
-        <UserControls:Video x:Name="VideoPlayerControl" Height="Auto" Width="Auto" Grid.Row="1" />
-        <UserControls:Timelines x:Name="TimelinesControl" Grid.Row="2" Width="Auto" Height="Auto"/>
+        <UserControls:Video x:Name="VideoPlayerControl" Height="Auto" Width="Auto" Grid.Row="1" Margin="0,0,0,1" />
+        <UserControls:Timelines x:Name="TimelinesControl" Grid.Row="3" Width="Auto" Height="Auto"/>
     </Grid>
 </Window>

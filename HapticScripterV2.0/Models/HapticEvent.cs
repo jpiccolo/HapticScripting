@@ -1,42 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace HapticScripterV2._0.Models
+﻿namespace HapticScripterV2._0.Models
 {
+    #region
+
+    using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Windows;
+    using System.Windows.Threading;
+
+    #endregion
 
     public class HapticEvent : INotifyPropertyChanged
     {
-        private int start;
-        private int duration;
-        private int magnitude;
-        private int period;
+        #region Fields
+
         private DirectionType direction;
+        private int duration;
         private int inDuration;
-        private HapticEventType type;
-        private int outMagnitude;
-        private int outDuration;
         private int inMagnitude;
+        private int magnitude;
+        private int outDuration;
+        private int outMagnitude;
+        private int period;
+        private int start;
         private TypeOfStop stopType;
-        public int Start { get { return this.start; } set { this.SetField(ref this.start, value, "Start"); } }
-        public int Duration { get { return this.duration; } set { this.SetField(ref this.duration, value, "Duration"); } }
-        public int Magnitude { get { return this.magnitude; } set { this.SetField(ref this.magnitude, value, "Magnitude"); } }
-        
-        public DirectionType Direction { get { return this.direction; } set { this.SetField(ref this.direction, value, "Direction"); } }
+        private HapticEventType type;
 
+        #endregion
 
-        public TypeOfStop StopType { get { return this.stopType; } set { this.SetField(ref this.stopType, value, "StopType"); } }
+        #region Public Events
 
-        public int InDuration { get { return this.inDuration; } set { this.SetField(ref this.inDuration, value, "InDuration"); } }
-        public int InMagnitude { get { return this.inMagnitude; } set { this.SetField(ref this.inMagnitude, value, "InMagnitude"); } }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public int OutDuration { get { return this.outDuration; } set { this.SetField(ref this.outDuration, value, "OutDuration"); } }
-        public int OutMagnitude { get { return this.outMagnitude; } set { this.SetField(ref this.outMagnitude, value, "OutMagnitude"); } }
+        #endregion
 
-        public HapticEventType Type { get { return this.type; } set { this.SetField(ref this.type, value, "Type"); } }
-        public int Period { get { return this.period; } set { this.SetField(ref this.period, value, "Period"); } }
+        #region Enums
 
         public enum DirectionType
         {
@@ -69,6 +67,141 @@ namespace HapticScripterV2._0.Models
             Squeeze
         }
 
+        #endregion
+
+        #region Public Properties
+
+        public DirectionType Direction
+        {
+            get { return this.direction; }
+            set
+            {
+                Application.Current.Dispatcher.Invoke(
+                    (Action)(() => this.SetField(ref this.direction, value, "Direction")), DispatcherPriority.Render);
+            }
+        }
+        public int Duration
+        {
+            get { return this.duration; }
+            set
+            {
+                Application.Current.Dispatcher.Invoke(
+                    (Action)(() => this.SetField(ref this.duration, value, "Duration")), DispatcherPriority.Render);
+            }
+        }
+        public int InDuration
+        {
+            get { return this.inDuration; }
+            set
+            {
+                Application.Current.Dispatcher.Invoke(
+                    (Action)(() => this.SetField(ref this.inDuration, value, "InDuration")), DispatcherPriority.Render);
+            }
+        }
+        public int InMagnitude
+        {
+            get { return this.inMagnitude; }
+            set
+            {
+                Application.Current.Dispatcher.Invoke(
+                    (Action)(() => this.SetField(ref this.inMagnitude, value, "InMagnitude")), DispatcherPriority.Render);
+            }
+        }
+        public int Magnitude
+        {
+            get { return this.magnitude; }
+            set
+            {
+                Application.Current.Dispatcher.Invoke(
+                    (Action)(() => this.SetField(ref this.magnitude, value, "Magnitude")), DispatcherPriority.Render);
+            }
+        }
+        public int OutDuration
+        {
+            get { return this.outDuration; }
+            set
+            {
+                Application.Current.Dispatcher.Invoke(
+                    (Action)(() => this.SetField(ref this.outDuration, value, "OutDuration")), DispatcherPriority.Render);
+            }
+        }
+        public int OutMagnitude
+        {
+            get { return this.outMagnitude; }
+            set
+            {
+                Application.Current.Dispatcher.Invoke(
+                    (Action)(() => this.SetField(ref this.outMagnitude, value, "OutMagnitude")),
+                    DispatcherPriority.Render);
+            }
+        }
+        public int Period
+        {
+            get { return this.period; }
+            set
+            {
+                Application.Current.Dispatcher.Invoke(
+                    (Action)(() => this.SetField(ref this.period, value, "Period")), DispatcherPriority.Render);
+            }
+        }
+        public int Start
+        {
+            get { return this.start; }
+            set
+            {
+                Application.Current.Dispatcher.Invoke(
+                    (Action)(() => this.SetField(ref this.start, value, "Start")), DispatcherPriority.Render);
+            }
+        }
+        public TypeOfStop StopType
+        {
+            get { return this.stopType; }
+            set
+            {
+                Application.Current.Dispatcher.Invoke(
+                    (Action)(() => this.SetField(ref this.stopType, value, "StopType")), DispatcherPriority.Render);
+            }
+        }
+        public HapticEventType Type
+        {
+            get { return this.type; }
+            set
+            {
+                Application.Current.Dispatcher.Invoke(
+                    (Action)(() => this.SetField(ref this.type, value, "Type")), DispatcherPriority.Render);
+            }
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public void FixEvent()
+        {
+            if (((OutDuration > Duration) ||
+                 (InDuration > Duration)) ||
+                (InDuration + OutDuration) > Duration)
+            {
+                if (OutDuration == 0)
+                {
+                    InDuration = Duration;
+                }
+                else if (InDuration == 0)
+                {
+                    OutDuration = Duration;
+                }
+                else
+                {
+                    InDuration = Duration / 2;
+                    OutDuration = Duration / 2;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = this.PropertyChanged;
@@ -89,25 +222,6 @@ namespace HapticScripterV2._0.Models
             return true;
         }
 
-
-
-
-        //void blah()
-        //{
-        //    using (var context = new RealTouchDatabaseEntities())
-        //    {
-        //        //var stdQuery = (from d in context.Classes
-        //        //                select new { Class = d.ClassName, Teacher = d.ClassTeacher });
-
-        //        //foreach (var q in stdQuery)
-        //        //{
-        //        //    Console.WriteLine("Class Name : " + q.Class + ", Class Teacher Name : " + q.Teacher);
-        //        //}
-
-        //        Console.ReadKey();
-        //    }
-        //}
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
     }
 }

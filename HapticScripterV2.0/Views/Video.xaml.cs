@@ -16,8 +16,12 @@ namespace HapticScripterV2._0.Views
 {
     using System.Windows.Media.Animation;
 
+    using HapticScripterV2._0.Factories;
+    using HapticScripterV2._0.Media;
     using HapticScripterV2._0.UIElements;
     using HapticScripterV2._0.ViewModels;
+
+    using WindowsMediaLib;
 
     /// <summary>
     /// Interaction logic for Video.xaml
@@ -275,6 +279,16 @@ namespace HapticScripterV2._0.Views
                     clockController.Pause();
                 }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //WMReaderCallback objMetaData = new WMReaderCallback();
+
+            //objMetaData.Report(@"C:\236179-wmv.wmv");
+
+            RealTouchFactory.ParseScript(@"C:\script.txt");
+            RealTouchFactory.FixErrors();
         }
     }
 }

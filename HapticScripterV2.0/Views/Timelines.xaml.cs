@@ -86,7 +86,7 @@
         {
             AppViewModel.TimelineViewModel.TimelineScroller = TimelineScroller;
 
-            int count = 5000;
+            int count = 1;
             Task.Factory.StartNew(
                 () =>
                     {
@@ -95,7 +95,7 @@
                         {
                             var evt = new HapticEvent
                                           {
-                                              Direction = HapticEvent.DirectionType.In,
+                                              Direction = HapticEvent.DirectionType.Out,
                                               Duration = 100,
                                               InDuration = 25,
                                               InMagnitude = 100,

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace HapticScripterV2._0.Factories
+﻿namespace HapticScripterV2._0.Factories
 {
+    #region
+
+    using System;
     using System.IO;
     using System.Threading.Tasks;
     using System.Windows;
@@ -12,8 +10,61 @@ namespace HapticScripterV2._0.Factories
     using HapticScripterV2._0.Models;
     using HapticScripterV2._0.ViewModels;
 
+    #endregion
+
     public static class RealTouchFactory
     {
+        #region Public Methods and Operators
+
+        public static Task FixErrors()
+        {
+            return Task.Factory.StartNew(
+                () =>
+                    {
+                        foreach (HapticEvent item in AppViewModel.DataViewModel.TopAxisData)
+                        {
+                            item.FixEvent();
+                        }
+
+                        foreach (var item in AppViewModel.DataViewModel.BothAxisData)
+                        {
+                            item.FixEvent();
+                        }
+
+                        foreach (var item in AppViewModel.DataViewModel.BottomAxisData)
+                        {
+                            item.FixEvent();
+                        }
+
+                        foreach (var item in AppViewModel.DataViewModel.SqueezeAxisData)
+                        {
+                            item.FixEvent();
+                        }
+
+                        foreach (var item in AppViewModel.DataViewModel.TopPeriodicData)
+                        {
+                            item.FixEvent();
+                        }
+                                
+                        foreach (var item in AppViewModel.DataViewModel.BothPeriodicData)
+                        {
+                            item.FixEvent();
+                        }
+                        AppViewModel.DataViewModel.BothPeriodicData.Invalidate();
+
+                        foreach (var item in AppViewModel.DataViewModel.BottomPeriodicData)
+                        {
+                            item.FixEvent();
+                        }
+
+                        foreach (var item in AppViewModel.DataViewModel.SqueezePeriodicData)
+                        {
+                            item.FixEvent();
+                        }
+                                
+                    });
+        }
+
         public static Task ParseScript(string si)
         {
             return Task.Factory.StartNew(
@@ -33,12 +84,18 @@ namespace HapticScripterV2._0.Factories
                         {
                             MessageBox.Show("Problem parsing script.txt!");
                         }
-                        //Logger.Log("*************Script File*************");
-                        //foreach (var line in lines)
-                        //{
-                        //    Logger.Log(line);
-                        //}
-                        //Logger.Log("*************End Script File*************");
+
+                        var topAxis = new HapticCollection();
+                        var bothAxis = new HapticCollection();
+                        var bottomAxis = new HapticCollection();
+                        var squeezeAxis = new HapticCollection();
+                        var topPeriodic = new HapticCollection();
+                        var bothPeriodic = new HapticCollection();
+                        var bottomPeriodic = new HapticCollection();
+                        var squeezePeriodic = new HapticCollection();
+                        var lube = new HapticCollection();
+                        var heat = new HapticCollection();
+                        var stop = new HapticCollection();
 
                         foreach (string s in lines)
                         {
@@ -53,8 +110,8 @@ namespace HapticScripterV2._0.Factories
                                         rt.Magnitude = Convert.ToInt32(split[2]);
 
                                         rt.Direction = (String.CompareOrdinal("IN", split[4]) == 0)
-                                                                       ? HapticEvent.DirectionType.In
-                                                                       : HapticEvent.DirectionType.Out;
+                                                           ? HapticEvent.DirectionType.In
+                                                           : HapticEvent.DirectionType.Out;
                                         rt.Duration = Convert.ToInt32(split[5]);
                                         rt.InMagnitude = Convert.ToInt32(split[6]);
                                         rt.InDuration = Convert.ToInt32(split[7]);
@@ -66,25 +123,25 @@ namespace HapticScripterV2._0.Factories
                                             case "U":
                                                 {
                                                     rt.Type = HapticEvent.HapticEventType.AxisBoth;
-                                                    AppViewModel.DataViewModel.BothAxisData.Add(rt);
+                                                    bothAxis.Add(rt);
                                                     break;
                                                 }
                                             case "T":
                                                 {
                                                     rt.Type = HapticEvent.HapticEventType.AxisTop;
-                                                    AppViewModel.DataViewModel.TopAxisData.Add(rt);
+                                                    topAxis.Add(rt);
                                                     break;
                                                 }
                                             case "B":
                                                 {
                                                     rt.Type = HapticEvent.HapticEventType.AxisBottom;
-                                                    AppViewModel.DataViewModel.BottomAxisData.Add(rt);
+                                                    bottomAxis.Add(rt);
                                                     break;
                                                 }
                                             case "S":
                                                 {
                                                     rt.Type = HapticEvent.HapticEventType.AxisSqueeze;
-                                                    AppViewModel.DataViewModel.SqueezeAxisData.Add(rt);
+                                                    squeezeAxis.Add(rt);
                                                     break;
                                                 }
                                         }
@@ -97,8 +154,8 @@ namespace HapticScripterV2._0.Factories
                                         rt.Magnitude = Convert.ToInt32(split[3]);
 
                                         rt.Direction = (String.CompareOrdinal("IN", split[5]) == 0)
-                                                                         ? HapticEvent.DirectionType.In
-                                                                         : HapticEvent.DirectionType.Out;
+                                                           ? HapticEvent.DirectionType.In
+                                                           : HapticEvent.DirectionType.Out;
                                         rt.Duration = Convert.ToInt32(split[6]);
                                         rt.InMagnitude = Convert.ToInt32(split[7]);
                                         rt.InDuration = Convert.ToInt32(split[8]);
@@ -110,25 +167,25 @@ namespace HapticScripterV2._0.Factories
                                             case "U":
                                                 {
                                                     rt.Type = HapticEvent.HapticEventType.PeriodicBoth;
-                                                    AppViewModel.DataViewModel.BothPeriodicData.Add(rt);
+                                                    bothPeriodic.Add(rt);
                                                     break;
                                                 }
                                             case "T":
                                                 {
                                                     rt.Type = HapticEvent.HapticEventType.PeriodicTop;
-                                                    AppViewModel.DataViewModel.TopPeriodicData.Add(rt);
+                                                    topPeriodic.Add(rt);
                                                     break;
                                                 }
                                             case "B":
                                                 {
                                                     rt.Type = HapticEvent.HapticEventType.PeriodicBottom;
-                                                    AppViewModel.DataViewModel.BottomPeriodicData.Add(rt);
+                                                    bottomPeriodic.Add(rt);
                                                     break;
                                                 }
                                             case "S":
                                                 {
                                                     rt.Type = HapticEvent.HapticEventType.PeriodicSqueeze;
-                                                    AppViewModel.DataViewModel.SqueezePeriodicData.Add(rt);
+                                                    squeezePeriodic.Add(rt);
                                                     break;
                                                 }
                                         }
@@ -140,7 +197,7 @@ namespace HapticScripterV2._0.Factories
                                         rt.Magnitude = Convert.ToInt32(split[2]);
                                         rt.Duration = 100;
 
-                                        AppViewModel.DataViewModel.HeatAxisData.Add(rt);
+                                        heat.Add(rt);
                                         break;
                                     }
                                 case "L":
@@ -149,7 +206,7 @@ namespace HapticScripterV2._0.Factories
                                         rt.Magnitude = Convert.ToInt32(split[2]);
                                         rt.Duration = Convert.ToInt32(split[3]);
 
-                                        AppViewModel.DataViewModel.LubeAxisData.Add(rt);
+                                        lube.Add(rt);
                                         break;
                                     }
                                 case "S":
@@ -189,14 +246,26 @@ namespace HapticScripterV2._0.Factories
                                                     break;
                                                 }
                                         }
-                                        AppViewModel.DataViewModel.StopAxisData.Add(rt);
+                                        stop.Add(rt);
                                         break;
                                     }
                             }
                         }
-                    });
 
-            AppViewModel.DataViewModel.TopAxisData.RaiseListChangedEvents = true;
+                        AppViewModel.DataViewModel.TopAxisData = topAxis;
+                        AppViewModel.DataViewModel.BothAxisData = bothAxis;
+                        AppViewModel.DataViewModel.BottomAxisData = bottomAxis;
+                        AppViewModel.DataViewModel.SqueezeAxisData = squeezeAxis;
+                        AppViewModel.DataViewModel.TopPeriodicData = topPeriodic;
+                        AppViewModel.DataViewModel.BothPeriodicData = bothPeriodic;
+                        AppViewModel.DataViewModel.BottomPeriodicData = bottomPeriodic;
+                        AppViewModel.DataViewModel.SqueezePeriodicData = squeezePeriodic;
+                        AppViewModel.DataViewModel.LubeAxisData = lube;
+                        AppViewModel.DataViewModel.HeatAxisData = heat;
+                        AppViewModel.DataViewModel.StopAxisData = stop;
+                    });
         }
+
+        #endregion
     }
 }
